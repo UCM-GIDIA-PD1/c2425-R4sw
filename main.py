@@ -256,7 +256,7 @@ def predict(pelea: PeleaP1):
     
     y_pred, probs = predecirP1(pelea)
     
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probability = probs[0] if y_pred == 0 else probs[1]
     
     return Prediccion(winner=winner, probability=probability)
@@ -271,7 +271,7 @@ def predict(request: Request,
     y_pred, probs = predecirP1(pelea)
        
     # Determinar el nombre del ganador
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probabilidad = probs[0] if y_pred == 0 else probs[1]
     
     context = {
@@ -288,7 +288,7 @@ def predict(pelea: PeleaP2):
     
     y_pred, probs = predecirP2(pelea)
     
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probability = probs[0] if y_pred == 0 else probs[1]
     
     return Prediccion(winner=winner, probability=probability)
@@ -303,7 +303,7 @@ def predict(request: Request,
     y_pred, probs = predecirP2(pelea)
        
     # Determinar el nombre del ganador
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probabilidad = probs[0] if y_pred == 0 else probs[1]
     
     context = {
@@ -320,7 +320,7 @@ def predict(pelea: PeleaP2):
     
     y_pred, probs = predecirP2_dif(pelea)
     
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probability = probs[0] if y_pred == 0 else probs[1]
     
     return Prediccion(winner=winner, probability=probability)
@@ -335,7 +335,7 @@ def predict(request: Request,
     y_pred, probs = predecirP2_dif(pelea)
        
     # Determinar el nombre del ganador
-    winner = pelea.peleadorA if y_pred == 0 else pelea.peleadorB
+    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
     probabilidad = probs[0] if y_pred == 0 else probs[1]
     
     context = {
