@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from joblib import load
 from typing import Annotated
-
+from CalculaFilaP2Dif import calculaFilaP2Dif
 app=FastAPI()
 
 # Servir ficheros HTML en la carpeta static
@@ -94,7 +94,6 @@ class PeleaP1(BaseModel):
 
 class PeleaP2(BaseModel):
     """Datos de una pelea"""
-    DATE: str
     Peleador_A: str
     Peleador_B: str
 
@@ -176,8 +175,8 @@ def predict(request: Request,
     '''Predicción JSON para determinar el ganador de la pelea'''
 
     print(f'Predección de la pelea P2: {pelea}')
-
-    y_pred, probs = predecirP2(pelea)
+    df = calculaFilaP2Dif(pelea.Peleador_A, pelea.Peleador_B)
+    y_pred, probs = predecirP2(df.iloc[0,:])
        
     # Determinar el nombre del ganador
     winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
