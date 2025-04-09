@@ -14,8 +14,8 @@ import xgboost as xgb
 async def lifespan(app: FastAPI):
     """Se ejecuta al inicio y al final del ciclo de vida de la aplicación."""
     # Código de inicialización (antes de que la aplicación comience a aceptar solicitudes)
-    app.modelP1 = xgb.Booster()
-    app.modelP2 = xgb.Booster()
+    app.modelP1 = XGBClassifier()
+    app.modelP2 = XGBClassifier()
     app.modelP1.load_model("models/modelP1.xgb")
     app.modelP2.load_model("models/modelP2.xgb")
     print("Modelos cargados")
@@ -135,12 +135,9 @@ def predecirP1(pelea: PeleaP1):
 def predecirP2(fila_pelea):
     """Dada una futura pelea predice quien sera el ganador"""
     print(f'Fila de pelea: {fila_pelea}')
-    dmatrix = xgb.DMatrix(fila_pelea)
-    print(f'Dmatrix: {dmatrix}')
-    print(f'Dmatrix data: {dmatrix.get_data()}')
     # Realizar la predicción
-    pred_y = app.modelP2.predict(dmatrix)[0]
-    prob_y = app.modelP2.predict(dmatrix, output_margin=False)[0]
+    pred_y = app.modelP2.predict(fila_pelea)[0]
+    prob_y = app.modelP2.predict_proba(fila_pelea)[0]
     return pred_y,prob_y
 
 @app.post('/POSTP2',response_class=HTMLResponse)
@@ -190,7 +187,7 @@ def predict(pelea: PeleaP2):
     y_pred, probs = predecirP2(pelea)
     
     winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probability = probs if y_pred == 0 else probs
+    probability = probs[0] if y_pred == 0 else probs[1]
     
     return Prediccion(winner=winner, probability=probability)
 
@@ -211,8 +208,7 @@ def predict(request: Request,
     
     # Determinar el nombre del ganador
     winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    print(probs)
-    probabilidad = probs if y_pred == 0 else probs
+    probabilidad = probs[0] if y_pred == 0 else probs[1]
     print("Winner:", winner)
     
     # Pasar datos a la plantilla

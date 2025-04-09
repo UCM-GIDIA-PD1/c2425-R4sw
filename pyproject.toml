@@ -11,5 +11,6 @@ dependencies = [
     "pandas>=2.2.3",
     "pyarrow>=19.0.1",
     "python-multipart>=0.0.20",
+    "scikit-learn>=1.6.1",
     "xgboost>=3.0.0",
 ]

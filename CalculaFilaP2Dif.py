@@ -14,13 +14,8 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     df = pd.read_parquet(ruta_df)
     df['DATE'] = pd.to_datetime(df['DATE'])
 
-    # Filtrar la pelea entre esos dos peleadores más reciente
-    pelea = df[
-        ((df['Peleador_A'] == peleador_a) & (df['Peleador_B'] == peleador_b)) |
-        ((df['Peleador_A'] == peleador_b) & (df['Peleador_B'] == peleador_a))
-    ].sort_values(by='DATE').iloc[-1]
 
-    fecha = pelea['DATE']
+    fecha = pd.Timestamp.today()
 
     # Últimas tres peleas de cada peleador antes de esa fecha
     peleas_a = df[(df['DATE'] < fecha) & 
