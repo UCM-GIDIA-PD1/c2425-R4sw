@@ -107,8 +107,8 @@ class Prediccion(BaseModel):
 @app.on_event("startup")
 def startup_event():
     """Se ejecuta al principio. Carga los modelos necesarios para nuestras predicciones"""
-    app.modelP1=load(modelos/P1)
-    app.modelP2=load(modelos/P2)
+    app.modelP1=load("models/xgboost_P1.joblib")
+    app.modelP2=load("models/xgboost_P2.joblib")
 
 def predecirP1(pelea: PeleaP1):
     """Dada una pelea ya dada indica el justo ganador"""
@@ -124,11 +124,6 @@ def predecirP2(pelea: PeleaP2):
     prob_y=app.modelP2.predict_proba(pelea)[0]
     return pred_y,prob_y
 
-def predecirP2_dif(pelea: PeleaP2_dif):
-    """Dada una futura pelea predice quien sera el ganador"""
-    pred_y=app.modelP2_dif.predict(pelea)[0]
-    prob_y=app.modelP2_dif.predict_proba(pelea)[0]
-    return pred_y,prob_y
 
 @app.post("/predictP1_json", response_model=Prediccion)
 def predict(pelea: PeleaP1):
@@ -194,36 +189,5 @@ def predict(request: Request,
     }
     return templates.TemplateResponse(request, name='response.html', context=context)
 
-@app.post("/predictP2_dif_json", response_model=Prediccion)
-def predict(pelea: PeleaP2):
-    '''Predicción JSON para determinar el ganador de la pelea'''
-
-    print(f'Predicción de la pelea P2_dif: {pelea}')
-    
-    y_pred, probs = predecirP2_dif(pelea)
-    
-    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probability = probs[0] if y_pred == 0 else probs[1]
-    
-    return Prediccion(winner=winner, probability=probability)
-
-@app.post("/predictP2_dif_html",response_class=HTMLResponse)
-def predict(request: Request, 
-            pelea: Annotated[PeleaP2, Form()]):
-    '''Predicción JSON para determinar el ganador de la pelea'''
-
-    print(f'Predección de la pelea P2_dif: {pelea}')
-
-    y_pred, probs = predecirP2_dif(pelea)
-       
-    # Determinar el nombre del ganador
-    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probabilidad = probs[0] if y_pred == 0 else probs[1]
-    
-    context = {
-        'winner': winner,
-        'probability': probabilidad,
-    }
-    return templates.TemplateResponse(request, name='response.html', context=context)
 
 print('Fin')
