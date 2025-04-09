@@ -144,6 +144,14 @@ def predecirP2(fila_pelea):
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/p1", response_class=HTMLResponse)
+async def predict_p1(request: Request):
+    return templates.TemplateResponse("predictP1.html", {"request": request})
+
+@app.get("/p2", response_class=HTMLResponse)
+async def predict_p2(request: Request):
+    return templates.TemplateResponse("predictP2.html", {"request": request})
+
 @app.post('/POSTP2',response_class=HTMLResponse)
 def testGET(request: Request, 
             Peleador_A: Annotated[str, Form()], Peleador_B: Annotated[str,Form()]):
@@ -222,6 +230,5 @@ def predict(request: Request,
     }
     
     return templates.TemplateResponse(request,'response.html', context=context)
-
 
 print('Fin')

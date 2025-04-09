@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}UFC Fight Predictor{% endblock %}
 
 {% block content %}
-    <h1>Bienvenido al Predictor de Combates UFC</h1>
-    <p>Selecciona un modelo para hacer una predicción:</p>
-    <div style="margin-top: 2rem;">
-        <a href="{{ request.url_for('predict_p2') }}">🔍 Modelo por nombre de peleadores</a><br><br>
-        <a href="{{ request.url_for('predict_p1') }}">📊 Modelo por estadísticas del combate</a>
-    </div>
+<div class="container">
+    <header class="header">
+        <h1>UFC Fight Predictor</h1>
+        <p class="subtitle">Sistema de predicción de resultados para combates de UFC</p>
+    </header>
+
+    <main class="options">
+        <div class="option-card">
+            <h2>Predicción Post-Combate</h2>
+            <p>Analiza el resultado justo de un combate basado en las estadísticas completas</p>
+            <a href="{{ request.url_for('predict_p1') }}" class="button">Analizar Combate</a>
+        </div>
+
+        <div class="option-card">
+            <h2>Predicción Pre-Combate</h2>
+            <p>Predice el resultado de un futuro combate basado en el historial de los luchadores</p>
+            <a href="{{ request.url_for('predict_p2') }}" class="button">Predecir Combate</a>
+        </div>
+    </main>
+</div>
 {% endblock %}

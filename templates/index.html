@@ -1,33 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UFC Fight Predictor</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <script src="/static/js/inicio.js" defer></script>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>UFC Fight Predictor</h1>
-            <p class="subtitle">Sistema de predicción de resultados para combates de UFC</p>
-        </header>
+{% extends 'base.html' %}
 
-        <main class="options">
-            <div class="option-card">
-                <h2>Predicción Post-Combate</h2>
-                <p>Analiza el resultado justo de un combate basado en las estadísticas completas</p>
-                <a href="/POSTP1.html" class="button">Ansalizar Combate</a>
-            </div>
+{% block title %}UFC Fight Predictor{% endblock %}
 
-            <div class="option-card">
-                <h2>Predicción Pre-Combate</h2>
-                <p>Predice el resultado de un futuro combate basado en el historial de los luchadores</p>
-                <a href="/static/POSTP2.html" class="button">Predecir Combate</a>
-            </div>
-        </main>
+{% block content %}
+<div class="container">
+    <header class="header">
+        <h1>UFC Fight Predictor</h1>
+        <p class="subtitle">Sistema de predicción de resultados para combates de UFC</p>
+    </header>
 
-    </div>
-</body>
-</html>
+    <main class="options">
+        <div class="option-card">
+            <h2>Predicción Post-Combate</h2>
+            <p>Analiza el resultado justo de un combate basado en las estadísticas completas</p>
+            <a href="{{ request.url_for('predict_p1') }}" class="button">Analizar Combate</a>
+        </div>
+
+        <div class="option-card">
+            <h2>Predicción Pre-Combate</h2>
+            <p>Predice el resultado de un futuro combate basado en el historial de los luchadores</p>
+            <a href="{{ request.url_for('predict_p2') }}" class="button">Predecir Combate</a>
+        </div>
+    </main>
+</div>
+{% endblock %}
