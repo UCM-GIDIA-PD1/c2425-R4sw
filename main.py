@@ -16,14 +16,7 @@ templates = Jinja2Templates(directory="templates")
 
 class PeleaP1(BaseModel):
     """Datos de una pelea"""
-    Peleador_A: str
-    Peleador_B: str
-    DATE: str
-    CATEGORY: str
-    WINNER: bool
-    METHOD: str
     TIME: int
-    ROUND: int
     KD_A: int
     KD_B: int
     SIG_STR_A: float
@@ -78,8 +71,6 @@ class PeleaP1(BaseModel):
     STRIKER_B: int
     GRAPPLER_A: int
     GRAPPLER_B: int
-    TITLE_FIGHT: int
-    WOMEN: int
     Record_A: int
     Record_B: int
     Peleas_A: int
@@ -106,115 +97,7 @@ class PeleaP2(BaseModel):
     DATE: str
     Peleador_A: str
     Peleador_B: str
-    WINNER: bool
-    KD_A: float
-    KD_B: float
-    SIG_STR_A: float
-    SIG_STR_B: float
-    TD_PORC_A: float
-    TD_PORC_B: float
-    SUB_ATT_A: float
-    SUB_ATT_B: float
-    REV_A: float
-    REV_B: float
-    CTRL_A: float
-    CTRL_B: float
-    TOTAL_STR_A_x: float
-    TOTAL_STR_B_x: float
-    TOTAL_STR_A_y: float
-    TOTAL_STR_B_y: float
-    TD_A_x: float
-    TD_B_x: float
-    TD_A_y: float
-    TD_B_y: float
-    STR_HEAD_A_x: float
-    STR_HEAD_B_x: float
-    STR_HEAD_A_y: float
-    STR_HEAD_B_y: float
-    STR_BODY_A_x: float
-    STR_BODY_B_x: float
-    STR_BODY_A_y: float
-    STR_BODY_B_y: float
-    STR_LEG_A_x: float
-    STR_LEG_B_x: float
-    STR_LEG_A_y: float
-    STR_LEG_B_y: float
-    STR_DISTANCE_A_x: float
-    STR_DISTANCE_B_x: float
-    STR_DISTANCE_A_y: float
-    STR_DISTANCE_B_y: float
-    STR_CLINCH_A_x: float
-    STR_CLINCH_B_x: float
-    STR_CLINCH_A_y: float
-    STR_CLINCH_B_y: float
-    STR_GROUND_A_x: float
-    STR_GROUND_B_x: float
-    STR_GROUND_A_y: float
-    STR_GROUND_B_y: float
-    STRIKER_A: float
-    STRIKER_B: float
-    GRAPPLER_A: float
-    GRAPPLER_B: float
-    Victorias_KO_A: float
-    Victorias_KO_B: float
-    Victorias_Sub_A: float
-    Victorias_Sub_B: float
-    Victorias_Decision_A: float
-    Victorias_Decision_B: float
-    Derrotas_KO_A: float
-    Derrotas_KO_B: float
-    Derrotas_Sub_A: float
-    Derrotas_Sub_B: float
-    Derrotas_Decision_A: float
-    Derrotas_Decision_B: float
-    Record_A: float
-    Record_B: float
-    Racha_A: float
-    Racha_B: float
-    Puntos_A: float
-    Puntos_B: float
-    Peleas_A: float
-    Peleas_B: float
-    KD_DIFF: float
-    SIG_STR_DIFF: float
-    TD_DIFF: float
-    SUB_ATT_DIFF: float
-    REV_DIFF: float
-    CTRL_DIFF: float
 
-class PeleaP2_dif(BaseModel):
-    """Datos de una pelea con diferencias estadísticas entre peleadores."""
-    DATE: str
-    Peleador_A: str
-    Peleador_B: str
-    WINNER: bool
-    KD_DIFF: float
-    SIG_STR_DIFF: float
-    TD_DIFF: float
-    SUB_ATT_DIFF: float
-    REV_DIFF: float
-    CTRL_DIFF: float
-    TD_PORC_DIFF: float
-    TOTAL_STR_A_DIFF: float
-    TD_A_DIFF: float
-    STR_HEAD_A_DIFF: float
-    STR_BODY_A_DIFF: float
-    STR_LEG_A_DIFF: float
-    STR_DISTANCE_A_DIFF: float
-    STR_CLINCH_A_DIFF: float
-    STR_GROUND_A_DIFF: float
-    STRIKER_DIFF: float
-    GRAPPLER_DIFF: float
-    Record_DIFF: float
-    Peleas_DIFF: float
-    Puntos_DIFF: float
-    Racha_DIFF: float
-    Victorias_KO_DIFF: float
-    Victorias_Sub_DIFF: float
-    Victorias_Decision_DIFF: float
-    Derrotas_KO_DIFF: float
-    Derrotas_Sub_DIFF: float
-    Derrotas_Decision_DIFF: float
 
 class Prediccion(BaseModel):
     """Predicción sobre la pelea"""
@@ -226,7 +109,6 @@ def startup_event():
     """Se ejecuta al principio. Carga los modelos necesarios para nuestras predicciones"""
     app.modelP1=load(modelos/P1)
     app.modelP2=load(modelos/P2)
-    app.modelP2_dif=load(modelos/P2_dif)
 
 def predecirP1(pelea: PeleaP1):
     """Dada una pelea ya dada indica el justo ganador"""

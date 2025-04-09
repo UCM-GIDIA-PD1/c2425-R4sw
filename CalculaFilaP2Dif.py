@@ -32,9 +32,36 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     if len(peleas_a) < 3 or len(peleas_b) < 3:
         return None
 
-    columnas_a = [...]  # mismas columnas que antes
-    columnas_b = [...]  # mismas columnas que antes
-    columnas_gen = [...]  # mismas columnas generales que antes
+    columnas_a = [
+        'KD_A', 'SIG_STR_A', 'TD_PORC_A', 'SUB_ATT_A', 'REV_A', 'CTRL_A',
+        'TOTAL_STR_A_x', 'TOTAL_STR_A_y', 'TD_A_x', 'TD_A_y', 'STR_HEAD_A_x',
+        'STR_HEAD_A_y', 'STR_BODY_A_x', 'STR_BODY_A_y', 'STR_LEG_A_x',
+        'STR_LEG_A_y', 'STR_DISTANCE_A_x', 'STR_DISTANCE_A_y',
+        'STR_CLINCH_A_x', 'STR_CLINCH_A_y', 'STR_GROUND_A_x', 'STR_GROUND_A_y',
+        'STRIKER_A', 'GRAPPLER_A','Victorias_KO_A', 'Victorias_Sub_A', 'Victorias_Decision_A',
+                                    'Derrotas_KO_A', 'Derrotas_Sub_A', 'Derrotas_Decision_A'
+    ]
+    
+    columnas_b = [
+        'KD_B', 'SIG_STR_B', 'TD_PORC_B', 'SUB_ATT_B', 'REV_B', 'CTRL_B',
+        'TOTAL_STR_B_x', 'TOTAL_STR_B_y', 'TD_B_x', 'TD_B_y', 'STR_HEAD_B_x',
+        'STR_HEAD_B_y', 'STR_BODY_B_x', 'STR_BODY_B_y', 'STR_LEG_B_x',
+        'STR_LEG_B_y', 'STR_DISTANCE_B_x', 'STR_DISTANCE_B_y',
+        'STR_CLINCH_B_x', 'STR_CLINCH_B_y', 'STR_GROUND_B_x', 'STR_GROUND_B_y',
+        'STRIKER_B', 'GRAPPLER_B','Victorias_KO_B', 'Victorias_Sub_B', 'Victorias_Decision_B',
+                                    'Derrotas_KO_B', 'Derrotas_Sub_B', 'Derrotas_Decision_B'
+    ]
+    
+    columnas_gen = [
+        'KD', 'SIG_STR', 'TD_PORC', 'SUB_ATT', 'REV', 'CTRL',
+        'TOTAL_STR_x', 'TOTAL_STR_y', 'TD_x', 'TD_y', 'STR_HEAD_x',
+        'STR_HEAD_y', 'STR_BODY_x', 'STR_BODY_y', 'STR_LEG_x',
+        'STR_LEG_y', 'STR_DISTANCE_x', 'STR_DISTANCE_y',
+        'STR_CLINCH_x', 'STR_CLINCH_y', 'STR_GROUND_x', 'STR_GROUND_y',
+        'STRIKER', 'GRAPPLER','Victorias_KO', 'Victorias_Sub', 'Victorias_Decision',
+                                    'Derrotas_KO', 'Derrotas_Sub', 'Derrotas_Decision'
+    ]
+
 
     def media_ponderada(peleas, peleador, columnas_a, columnas_b, columnas_gen):
         dic = {}
@@ -63,6 +90,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
         pelea_ajustada[columnas_b[i]] = media_b[columnas_gen[i]]
 
     def actualizar_record(peleador, ult_pelea):
+        """"Actualiza el record teniendo en cuenta el resultado de su última pelea"""
         if peleador == ult_pelea["Peleador_A"] and ult_pelea["WINNER"] == 0:
             return ult_pelea["Record_A"] + 1
         elif peleador == ult_pelea["Peleador_B"] and ult_pelea["WINNER"] == 1:
@@ -76,6 +104,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada['Record_B'] = actualizar_record(peleador_b, peleas_b.iloc[-1])
 
     def actualizar_racha(peleador, ult_pelea):
+        """"Actualiza la racha teniendo en cuenta el resultado de su última pelea"""
         if peleador == ult_pelea["Peleador_A"] and ult_pelea["WINNER"] == 0:
             return ult_pelea["Racha_A"] + 1
         elif peleador == ult_pelea["Peleador_B"] and ult_pelea["WINNER"] == 1:
@@ -87,6 +116,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada['Racha_B'] = actualizar_racha(peleador_b, peleas_b.iloc[-1])
 
     def actualizar_puntos(peleador, ult_pelea, k=20):
+        """Actualiza los puntos del peleador teniendo en cuenta la diferencia de nivel y normalización."""
         A, B = ult_pelea["Peleador_A"], ult_pelea["Peleador_B"]
         Ra, Rb = ult_pelea["Puntos_A"], ult_pelea["Puntos_B"]
 
