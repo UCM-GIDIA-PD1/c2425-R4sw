@@ -8,13 +8,16 @@ from joblib import load
 from typing import Annotated
 from contextlib import asynccontextmanager
 from xgboost import XGBClassifier
+import xgboost as xgb
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Se ejecuta al inicio y al final del ciclo de vida de la aplicación."""
     # Código de inicialización (antes de que la aplicación comience a aceptar solicitudes)
-    app.modelP1 = load("models/xgboost_P1.joblib")
-    app.modelP2 = load("models/xgboost_P2.joblib")
+    app.modelP1 = xgb.Booster()
+    app.modelP2 = xgb.Booster()
+    app.modelP1.load_model("models/modelP1.xgb")
+    app.modelP2.load_model("models/modelP2.xgb")
     print("Modelos cargados")
 
     yield  # Aquí la aplicación estará en ejecución
