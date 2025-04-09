@@ -138,9 +138,10 @@ def predecirP2(pelea: PeleaP2):
     prob_y=app.modelP2.predict_proba(pelea)[0]
     return pred_y,prob_y
 
-@app.get('/testGETP2',response_class=HTMLResponse)
-def testGET(request: Request, Peleador_A: str, Peleador_B: str):
-    print(f'testGETP2 Pelador_A:{Peleador_A} b: {Peleador_B}')
+@app.post('/POSTP2',response_class=HTMLResponse)
+def testGET(request: Request, 
+            Peleador_A: Annotated[str, Form()], Peleador_B: Annotated[str,Form()]):
+    print(f'POSTP2 Pelador_A:{Peleador_A} b: {Peleador_B}')
     return templates.TemplateResponse(request, name='predictP2.html', context={'Peleador_A': Peleador_A, 'Peleador_B': Peleador_B})
 
 @app.post("/predictP1_json", response_model=Prediccion)
