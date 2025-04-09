@@ -132,16 +132,21 @@ def predecirP1(pelea: PeleaP1):
     prob_y=app.modelP1.predict_proba(pelea)[0]
     return pred_y,prob_y
 
-def predecirP2(pelea: PeleaP2):
+def predecirP2(fila_pelea):
     """Dada una futura pelea predice quien sera el ganador"""
-    pred_y=app.modelP2.predict(pelea)[0]
-    prob_y=app.modelP2.predict_proba(pelea)[0]
+    print(f'Fila de pelea: {fila_pelea}')
+    dmatrix = xgb.DMatrix(fila_pelea)
+    print(f'Dmatrix: {dmatrix}')
+    print(f'Dmatrix data: {dmatrix.get_data()}')
+    # Realizar la predicción
+    pred_y = app.modelP2.predict(dmatrix)[0]
+    prob_y = app.modelP2.predict(dmatrix, output_margin=False)[0]
     return pred_y,prob_y
 
 @app.post('/POSTP2',response_class=HTMLResponse)
 def testGET(request: Request, 
             Peleador_A: Annotated[str, Form()], Peleador_B: Annotated[str,Form()]):
-    print(f'POSTP2 Pelador_A:{Peleador_A} b: {Peleador_B}')
+    print(f'POSTP2 Pelador_A: {Peleador_A} Peleador_B: {Peleador_B}')
     return templates.TemplateResponse(request, name='predictP2.html', context={'Peleador_A': Peleador_A, 'Peleador_B': Peleador_B})
 
 @app.post("/predictP1_json", response_model=Prediccion)
@@ -185,28 +190,38 @@ def predict(pelea: PeleaP2):
     y_pred, probs = predecirP2(pelea)
     
     winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probability = probs[0] if y_pred == 0 else probs[1]
+    probability = probs if y_pred == 0 else probs
     
     return Prediccion(winner=winner, probability=probability)
 
-@app.post("/predictP2_html",response_class=HTMLResponse)
+@app.post("/predictP2_html", response_class=HTMLResponse)
 def predict(request: Request, 
             pelea: Annotated[PeleaP2, Form()]):
-    '''Predicción JSON para determinar el ganador de la pelea'''
+    '''Predicción HTML para determinar el ganador de la pelea'''
+    print(f'POSTP2 Pelador_A:{pelea.Peleador_A} b: {pelea.Peleador_B}')
+    print(f'Predicción de la pelea P2: {pelea}')
 
-    print(f'Predección de la pelea P2: {pelea}')
+    # Calcular la fila de datos para la pelea
     df = calcular_fila_pelea(pelea.Peleador_A, pelea.Peleador_B)
-    y_pred, probs = predecirP2(df.iloc[0,:])
-       
+    df.drop(columns=['Peleador_A', 'Peleador_B','DATE'], inplace=True)
+    print(f'Fila de datos: {df}')
+    print(f'Columnas: {df.columns}')    
+    print(df.info())
+    y_pred, probs = predecirP2(df)
+    
     # Determinar el nombre del ganador
     winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probabilidad = probs[0] if y_pred == 0 else probs[1]
+    print(probs)
+    probabilidad = probs if y_pred == 0 else probs
+    print("Winner:", winner)
     
+    # Pasar datos a la plantilla
     context = {
         'winner': winner,
         'probability': probabilidad,
     }
-    return templates.TemplateResponse(request, name='response.html', context=context)
+    
+    return templates.TemplateResponse(request,'response.html', context=context)
 
 
 print('Fin')

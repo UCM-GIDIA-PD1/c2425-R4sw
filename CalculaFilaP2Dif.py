@@ -10,7 +10,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     dados y devuelve una sola fila correspondiente al combate usando las diferencias entre ellos.
     Si no hay más de tres peleas devuelve None. (Tener en cuenta para mostrar algo en la web igual)
     """
-    ruta_df =  os.path.join( "data","peleas.parquet")
+    ruta_df =  os.path.join("data","peleas.parquet")
     df = pd.read_parquet(ruta_df)
     df['DATE'] = pd.to_datetime(df['DATE'])
 
@@ -82,7 +82,6 @@ def calcular_fila_pelea(peleador_a, peleador_b):
         'DATE': fecha,
         'Peleador_A': peleador_a,
         'Peleador_B': peleador_b,
-        'WINNER': pelea['WINNER']
     }
 
     for i in range(len(columnas_a)):
