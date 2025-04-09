@@ -140,6 +140,10 @@ def predecirP2(fila_pelea):
     prob_y = app.modelP2.predict_proba(fila_pelea)[0]
     return pred_y,prob_y
 
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 @app.post('/POSTP2',response_class=HTMLResponse)
 def testGET(request: Request, 
             Peleador_A: Annotated[str, Form()], Peleador_B: Annotated[str,Form()]):
