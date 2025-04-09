@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <h1>Bienvenido al Predictor de Combates UFC</h1>
+    <p>Selecciona un modelo para hacer una predicción:</p>
+    <div style="margin-top: 2rem;">
+        <a href="{{ request.url_for('predict_p2') }}">🔍 Modelo por nombre de peleadores</a><br><br>
+        <a href="{{ request.url_for('predict_p1') }}">📊 Modelo por estadísticas del combate</a>
+    </div>
+{% endblock %}
