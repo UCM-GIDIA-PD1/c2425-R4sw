@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Predicción</title>
+    <link rel="stylesheet" href="/static/css/style_P2.css">
+    <script src="/static/js/modelo_P2.js" defer></script>
+</head>
+<body>
+
+<h2>Formulario de Predicción</h2>
+
+<form id="formulario-p2" method="post">
+    <div class="peleador-container">
+        <div class="peleador">
+            <img id="img1" src="/static/images/default.jpg" alt="Peleador A">
+            <label for="Peleador_A">Peleador A:</label><br>
+            <input type="text" id="Peleador_A" name="Peleador_A" value="Peleador 1" required><br>
+        </div>
+
+        <div class="peleador">
+            <img id="img2" src="/static/images/default.jpg" alt="Peleador B">
+            <label for="Peleador_B">Peleador B:</label><br>
+            <input type="text" id="Peleador_B" name="Peleador_B" value="Peleador 2" required><br>
+        </div>
+    </div>
+
+    <input type="submit" value="Enviar">
+</form>
+
+<!-- Aquí aparecerá el resultado dinámicamente -->
+<div id="resultado" class="resultado"></div>
+
+</body>
+</html>
