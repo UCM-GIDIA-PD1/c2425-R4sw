@@ -1,3 +1,4 @@
+from CalculaFilaP2Dif import calcular_fila_pelea
 from fastapi import FastAPI, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -5,8 +6,24 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from joblib import load
 from typing import Annotated
-from CalculaFilaP2Dif import calculaFilaP2Dif
-app=FastAPI()
+from contextlib import asynccontextmanager
+from xgboost import XGBClassifier
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Se ejecuta al inicio y al final del ciclo de vida de la aplicación."""
+    # Código de inicialización (antes de que la aplicación comience a aceptar solicitudes)
+    app.modelP1 = load("models/xgboost_P1.joblib")
+    app.modelP2 = load("models/xgboost_P2.joblib")
+    print("Modelos cargados")
+
+    yield  # Aquí la aplicación estará en ejecución
+
+    # Código de limpieza (después de que la aplicación deje de aceptar solicitudes)
+    print("Aplicación finalizada")
+
+# Configurar el manejador de ciclo de vida
+app = FastAPI(lifespan=lifespan)
 
 # Servir ficheros HTML en la carpeta static
 app.mount('/static', StaticFiles(directory='static', html = True), name='static')
@@ -103,11 +120,6 @@ class Prediccion(BaseModel):
     winner: str           # Nombre del peleador ganador
     probability: float    # Probabilidad de la victoria
 
-@app.on_event("startup")
-def startup_event():
-    """Se ejecuta al principio. Carga los modelos necesarios para nuestras predicciones"""
-    app.modelP1=load("models/xgboost_P1.joblib")
-    app.modelP2=load("models/xgboost_P2.joblib")
 
 def predecirP1(pelea: PeleaP1):
     """Dada una pelea ya dada indica el justo ganador"""
@@ -123,6 +135,10 @@ def predecirP2(pelea: PeleaP2):
     prob_y=app.modelP2.predict_proba(pelea)[0]
     return pred_y,prob_y
 
+@app.get('/testGETP2',response_class=HTMLResponse)
+def testGET(request: Request, Peleador_A: str, Peleador_B: str):
+    print(f'testGETP2 Pelador_A:{Peleador_A} b: {Peleador_B}')
+    return templates.TemplateResponse(request, name='predictP2.html', context={'Peleador_A': Peleador_A, 'Peleador_B': Peleador_B})
 
 @app.post("/predictP1_json", response_model=Prediccion)
 def predict(pelea: PeleaP1):
@@ -175,7 +191,7 @@ def predict(request: Request,
     '''Predicción JSON para determinar el ganador de la pelea'''
 
     print(f'Predección de la pelea P2: {pelea}')
-    df = calculaFilaP2Dif(pelea.Peleador_A, pelea.Peleador_B)
+    df = calcular_fila_pelea(pelea.Peleador_A, pelea.Peleador_B)
     y_pred, probs = predecirP2(df.iloc[0,:])
        
     # Determinar el nombre del ganador
