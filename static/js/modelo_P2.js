@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
-    img2.style.transform = "scaleX(-1)";
+    img2.style.transform = "scaleX(-1)"; // Voltear la imagen del segundo peleador
 
-    const defaultImg = "https://www.ufc.com/themes/custom/ufc/assets/img/no-profile-image.png";
+    const defaultImg = "/static/img/peleador_default.png";
+
     let imagenesData = [];
 
     // Cargar el JSON de imágenes una vez al inicio
@@ -35,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const imagenURL = obtenerImagen(input.value);
         img.src = imagenURL;
     }
+
+    // Mostrar las imágenes predeterminadas al cargar la página
+    actualizarImagen(input1, img1);
+    actualizarImagen(input2, img2);
 
     input1.addEventListener("input", () => actualizarImagen(input1, img1));
     input2.addEventListener("input", () => actualizarImagen(input2, img2));
@@ -115,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-
         } catch (error) {
             console.error("Error en la predicción:", error);
             resultadoDiv.innerHTML = `
@@ -125,5 +129,4 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }
     });
-
 });
