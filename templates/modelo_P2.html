@@ -1,37 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predicción de Peleas UFC</title>
-    <link rel="stylesheet" href="/static/css/style_P2.css">
-    <script src="/static/js/modelo_P2.js" defer></script>
-</head>
-<body>
-    <div class="container">
-        <h1>Predicción de Peleas UFC</h1>
-        
-        <form id="formulario-p2" method="post" class="prediction-form">
-            <div class="peleador-container">
-                <div class="peleador">
-                    <img id="img1" src="/static/images/default.jpg" alt="Peleador A" class="fighter-img">
-                    <label for="Peleador_A">Peleador A:</label>
-                    <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
-                </div>
+{% extends 'base.html' %}
 
-                <div class="vs">VS</div>
+{% block title %}Simulación de Pelea - UFC{% endblock %}
 
-                <div class="peleador">
-                    <img id="img2" src="/static/images/default.jpg" alt="Peleador B" class="fighter-img">
-                    <label for="Peleador_B">Peleador B:</label>
-                    <input type="text" id="Peleador_B" name="Peleador_B" required placeholder="Nombre del peleador">
-                </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/styles_P2.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Predicción de Peleas UFC</h1>
+
+    <form id="formulario-p2" method="post" class="prediction-form">
+        <div class="peleador-container">
+            <div class="peleador">
+                <img id="img1" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador A" class="fighter-img">
+                <label for="Peleador_A">Peleador A:</label>
+                <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
             </div>
 
-            <button type="submit" class="submit-btn">Predecir Ganador</button>
-        </form>
+            <div class="vs">VS</div>
 
-        <div id="resultado" class="resultado-container"></div>
-    </div>
-</body>
-</html>
+            <div class="peleador">
+                <img id="img2" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador B" class="fighter-img">
+                <label for="Peleador_B">Peleador B:</label>
+                <input type="text" id="Peleador_B" name="Peleador_B" required placeholder="Nombre del peleador">
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Predecir Ganador</button>
+    </form>
+
+    <div id="resultado" class="resultado-container"></div>
+</div>
+<script src="{{ request.url_for('static', path='js/modelo_P2.js') }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
