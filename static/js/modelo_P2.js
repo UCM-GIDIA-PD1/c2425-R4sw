@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
+    img2.style.transform = "scaleX(-1)";
+
     const defaultImg = "https://www.ufc.com/themes/custom/ufc/assets/img/no-profile-image.png";
     let imagenesData = [];
 
