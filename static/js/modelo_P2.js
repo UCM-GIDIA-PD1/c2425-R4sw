@@ -1,25 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Variables de los peleadores y sus imágenes
     const input1 = document.getElementById("Peleador_A");
     const input2 = document.getElementById("Peleador_B");
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
-    const basePath = "/static/images/fighters/";
     const defaultImg = "https://www.ufc.com/themes/custom/ufc/assets/img/no-profile-image.png";
+    let imagenesData = [];
 
-    // Función para actualizar la imagen
+    // Cargar el JSON de imágenes una vez al inicio
+    fetch("/data/imagenes.json")
+        .then(res => res.json())
+        .then(data => {
+            imagenesData = data;
+            console.log("Datos cargados:", data);
+        })
+        .catch(error => {
+            console.error("Error al cargar imagenes.json:", error);
+        });
+
+    function obtenerImagen(nombre) {
+        const nombreNormalizado = nombre.trim().toLowerCase();
+        const peleador = imagenesData.find(p => p.Nombre.trim().toLowerCase() === nombreNormalizado);
+
+        if (peleador && peleador.Imagen && peleador.Imagen !== "NaN") {
+            return peleador.Imagen;
+        } else {
+            return defaultImg;
+        }
+    }
+
     function actualizarImagen(input, img) {
-        const nombre = input.value.trim().toLowerCase().replace(/\s+/g, "_");
-        const path = `${basePath}${nombre}.jpg`;
-
-        fetch(path)
-            .then(res => {
-                img.src = res.ok ? path : defaultImg;
-            })
-            .catch(() => {
-                img.src = defaultImg;
-            });
+        const imagenURL = obtenerImagen(input.value);
+        img.src = imagenURL;
     }
 
     input1.addEventListener("input", () => actualizarImagen(input1, img1));
@@ -50,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            // Formatear la probabilidad como porcentaje con 2 decimales
             const probabilityPercent = (data.probability * 100).toFixed(2);
             
             resultadoDiv.innerHTML = `

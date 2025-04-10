@@ -31,6 +31,9 @@ app = FastAPI(lifespan=lifespan)
 # Servir ficheros HTML en la carpeta static
 app.mount('/static', StaticFiles(directory='static', html = True), name='static')
 
+app.mount("/data", StaticFiles(directory="data"), name="data")
+
+
 # Usar templates para devolver páginas HTML parametrizadas
 templates = Jinja2Templates(directory="templates")
 
