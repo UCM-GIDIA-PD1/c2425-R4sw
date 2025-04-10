@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Predicción</title>
+    <title>Predicción de Peleas UFC</title>
     <link rel="stylesheet" href="/static/css/style_P2.css">
     <script src="/static/js/modelo_P2.js" defer></script>
 </head>
 <body>
+    <div class="container">
+        <h1>Predicción de Peleas UFC</h1>
+        
+        <form id="formulario-p2" method="post" class="prediction-form">
+            <div class="peleador-container">
+                <div class="peleador">
+                    <img id="img1" src="/static/images/default.jpg" alt="Peleador A" class="fighter-img">
+                    <label for="Peleador_A">Peleador A:</label>
+                    <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
+                </div>
 
-<h2>Formulario de Predicción</h2>
+                <div class="vs">VS</div>
 
-<form id="formulario-p2" method="post">
-    <div class="peleador-container">
-        <div class="peleador">
-            <img id="img1" src="/static/images/default.jpg" alt="Peleador A">
-            <label for="Peleador_A">Peleador A:</label><br>
-            <input type="text" id="Peleador_A" name="Peleador_A" value="Peleador 1" required><br>
-        </div>
+                <div class="peleador">
+                    <img id="img2" src="/static/images/default.jpg" alt="Peleador B" class="fighter-img">
+                    <label for="Peleador_B">Peleador B:</label>
+                    <input type="text" id="Peleador_B" name="Peleador_B" required placeholder="Nombre del peleador">
+                </div>
+            </div>
 
-        <div class="peleador">
-            <img id="img2" src="/static/images/default.jpg" alt="Peleador B">
-            <label for="Peleador_B">Peleador B:</label><br>
-            <input type="text" id="Peleador_B" name="Peleador_B" value="Peleador 2" required><br>
-        </div>
+            <button type="submit" class="submit-btn">Predecir Ganador</button>
+        </form>
+
+        <div id="resultado" class="resultado-container"></div>
     </div>
-
-    <input type="submit" value="Enviar">
-</form>
-
-<!-- Aquí aparecerá el resultado dinámicamente -->
-<div id="resultado" class="resultado"></div>
-
 </body>
 </html>

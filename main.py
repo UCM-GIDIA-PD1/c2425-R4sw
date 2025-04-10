@@ -152,7 +152,7 @@ async def predict_p1(request: Request):
 
 @app.get("/p2", response_class=HTMLResponse)
 async def predict_p2(request: Request):
-    return templates.TemplateResponse("predictP2.html", {"request": request})
+    return templates.TemplateResponse("modelo_P2.html", {"request": request})
 
 @app.post('/PrediccionP1',response_class=HTMLResponse)
 async def testGET(request: Request,       
@@ -275,18 +275,28 @@ def testGET(request: Request,
     return templates.TemplateResponse(request, name='predictP2.html', context={'Peleador_A': Peleador_A, 'Peleador_B': Peleador_B})
 
 
-@app.post("/predictP2_json", response_model=Prediccion)
-def predict(pelea: PeleaP2):
+@app.post("/predictP2_json")
+async def predict_json(
+    request: Request,
+    Peleador_A: str = Form(...),
+    Peleador_B: str = Form(...)
+):
     '''Predicción JSON para determinar el ganador de la pelea'''
+    print(f'Predicción de la pelea P2: A={Peleador_A}, B={Peleador_B}')
+    
+    # Calcular la fila de datos para la pelea
+    df = calcular_fila_pelea(Peleador_A, Peleador_B)
+    df.drop(columns=['Peleador_A', 'Peleador_B','DATE'], inplace=True)
+    
+    y_pred, probs = predecirP2(df)
+    
+    winner = Peleador_A if y_pred == 0 else Peleador_B
+    probability = float(probs[0] if y_pred == 0 else probs[1])  # Convertir a float
+    
+    return {"winner": winner, "probability": probability}
 
-    print(f'Predicción de la pelea P2: {pelea}')
-    
-    y_pred, probs = predecirP2(pelea)
-    
-    winner = pelea.Peleador_A if y_pred == 0 else pelea.Peleador_B
-    probability = probs[0] if y_pred == 0 else probs[1]
-    
-    return Prediccion(winner=winner, probability=probability)
+
+
 
 @app.post("/predictP2_html", response_class=HTMLResponse)
 def predict(request: Request, 
