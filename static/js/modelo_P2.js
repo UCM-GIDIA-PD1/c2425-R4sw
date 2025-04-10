@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("formulario-p2");
     const resultadoDiv = document.getElementById("resultado");
 
+    // Antes de usar el gráfico, asegúrate de borrar el anterior si existe
+    let chartInstance = null;
+
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -63,16 +66,56 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const data = await response.json();
+            const probability = data.probability;
+            const probabilityPercent = (probability * 100).toFixed(2);
 
-            const probabilityPercent = (data.probability * 100).toFixed(2);
-            
+            const loser = data.winner === Peleador_A ? Peleador_B : Peleador_A;
+            const loserProb = (100 - probabilityPercent).toFixed(2);
+
             resultadoDiv.innerHTML = `
                 <div class="prediction-result">
                     <h3>Resultado de la Predicción</h3>
                     <p><strong>Ganador:</strong> ${data.winner}</p>
                     <p><strong>Probabilidad:</strong> ${probabilityPercent}%</p>
+                    <canvas id="pieChart" width="300" height="300"></canvas>
                 </div>
             `;
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+
+            // Determinar el orden de los datos según quién sea el ganador
+            const peleadorA_prob = data.winner === Peleador_A ? probabilityPercent : (100 - probabilityPercent).toFixed(2);
+            const peleadorB_prob = (100 - peleadorA_prob).toFixed(2);
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [Peleador_A, Peleador_B],
+                    datasets: [{
+                        data: [peleadorA_prob, peleadorB_prob],
+                        backgroundColor: ['#d20a0a', '#0a40d2'], // Rojo para A, Azul para B
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
         } catch (error) {
             console.error("Error en la predicción:", error);
             resultadoDiv.innerHTML = `
@@ -82,4 +125,5 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }
     });
+
 });
