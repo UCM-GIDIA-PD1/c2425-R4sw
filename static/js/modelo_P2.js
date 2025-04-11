@@ -58,10 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const Peleador_A = input1.value;
         const Peleador_B = input2.value;
 
-        // Resetear estilos de ganador anterior
-        // img1.parentNode.classList.remove('winner-highlight');
-        // img2.parentNode.classList.remove('winner-highlight');
-
         console.log("esto es una prueba")
 
         try {
@@ -100,19 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const peleadorA_prob = data.winner === Peleador_A ? probabilityPercent : (100 - probabilityPercent).toFixed(2);
             const peleadorB_prob = (100 - peleadorA_prob).toFixed(2);
 
-            img1.parentNode.classList.add('winner-highlight');
-            img2.parentNode.classList.add('winner-highlight');
-
-            // if (data.winner === Peleador_A) {
-            //     console.log("djlaflk")
-            //     img1.parentNode.classList.add('winner-highlight');
-                
-            // } else {
-            //     img2.parentNode.classList.add('winner-highlight');
-            // }
-
-            //img1.parentNode.classList.add('winner-highlight');
-            console.log("esto es una prueba2")
 
             if (chartInstance) {
                 chartInstance.destroy();
