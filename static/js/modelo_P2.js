@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(data => {
             imagenesData = data;
-            console.log("Datos cargados:", data);
         })
         .catch(error => {
             console.error("Error al cargar imagenes.json:", error);
@@ -51,11 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Antes de usar el gráfico, asegúrate de borrar el anterior si existe
     let chartInstance = null;
 
+    console.log("esto es una prueba")
+
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const Peleador_A = input1.value;
         const Peleador_B = input2.value;
+
+        // Resetear estilos de ganador anterior
+        // img1.parentNode.classList.remove('winner-highlight');
+        // img2.parentNode.classList.remove('winner-highlight');
+
+        console.log("esto es una prueba")
 
         try {
             const response = await fetch("/predictP2_json", {
@@ -77,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const loser = data.winner === Peleador_A ? Peleador_B : Peleador_A;
             const loserProb = (100 - probabilityPercent).toFixed(2);
 
+
             resultadoDiv.innerHTML = `
                 <div class="prediction-result">
                     <h3>Resultado de la Predicción</h3>
@@ -91,6 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
             // Determinar el orden de los datos según quién sea el ganador
             const peleadorA_prob = data.winner === Peleador_A ? probabilityPercent : (100 - probabilityPercent).toFixed(2);
             const peleadorB_prob = (100 - peleadorA_prob).toFixed(2);
+
+            img1.parentNode.classList.add('winner-highlight');
+            img2.parentNode.classList.add('winner-highlight');
+
+            // if (data.winner === Peleador_A) {
+            //     console.log("djlaflk")
+            //     img1.parentNode.classList.add('winner-highlight');
+                
+            // } else {
+            //     img2.parentNode.classList.add('winner-highlight');
+            // }
+
+            //img1.parentNode.classList.add('winner-highlight');
+            console.log("esto es una prueba2")
 
             if (chartInstance) {
                 chartInstance.destroy();
