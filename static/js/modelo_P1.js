@@ -5,7 +5,7 @@ function mostrarResultado(resultado) {
         <h3>Resultado de la Predicción</h3>
         <p><strong>Ganador:</strong> ${resultado.winner}</p>
         <p><strong>Probabilidad:</strong> ${resultado.probability}%</p>
-        </div>;`
+        </div>`
         contenedor.style.display = 'block';
 }
 
