@@ -2,7 +2,7 @@ from CalculaFilaP2Dif import calcular_fila_pelea
 from fastapi import FastAPI, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
 from joblib import load
 from typing import Annotated
@@ -149,9 +149,13 @@ def predecirP2(fila_pelea):
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+# @app.get("/p1", response_class=HTMLResponse)
+# async def predict_p1(request: Request):
+#     return RedirectResponse(url='./static/PrediccionP1.html')
+
 @app.get("/p1", response_class=HTMLResponse)
 async def predict_p1(request: Request):
-    return RedirectResponse(url='./static/PrediccionP1.html')
+    return templates.TemplateResponse("modelo_P1.html", {"request": request})
 
 @app.get("/p2", response_class=HTMLResponse)
 async def predict_p2(request: Request):
@@ -271,6 +275,117 @@ async def testGET(request: Request,
     }
     return templates.TemplateResponse(request, name='response.html', context=context)
 
+@app.post('/PrediccionPostCombate',response_class=HTMLResponse)
+async def predictP1_json(request: Request,       
+    TIME: Annotated[int,Form()],
+    KD_A: Annotated[int,Form()],
+    KD_B: Annotated[int,Form()],
+    SIG_STR_A: Annotated[float,Form()],
+    SIG_STR_B: Annotated[float,Form()],
+    TD_PORC_A: Annotated[float,Form()],
+    TD_PORC_B: Annotated[float,Form()],
+    SUB_ATT_A: Annotated[int,Form()],
+    SUB_ATT_B: Annotated[int,Form()],
+    REV_A: Annotated[int,Form()],
+    REV_B: Annotated[int,Form()],
+    CTRL_A: Annotated[int,Form()],
+    CTRL_B: Annotated[int,Form()],
+    TOTAL_STR_A_x: Annotated[int,Form()],
+    TOTAL_STR_A_y: Annotated[int,Form()],
+    TOTAL_STR_B_x: Annotated[int,Form()],
+    TOTAL_STR_B_y: Annotated[int,Form()],
+    TD_A_x: Annotated[int,Form()],
+    TD_A_y: Annotated[int,Form()],
+    TD_B_x: Annotated[int,Form()],
+    TD_B_y: Annotated[int,Form()],
+    STR_HEAD_A_x: Annotated[int,Form()],
+    STR_HEAD_A_y: Annotated[int,Form()],
+    STR_HEAD_B_x: Annotated[int,Form()],
+    STR_HEAD_B_y: Annotated[int,Form()],
+    STR_BODY_A_x: Annotated[int,Form()],
+    STR_BODY_A_y: Annotated[int,Form()],
+    STR_BODY_B_x: Annotated[int,Form()],
+    STR_BODY_B_y: Annotated[int,Form()],
+    STR_LEG_A_x: Annotated[int,Form()],
+    STR_LEG_A_y: Annotated[int,Form()],
+    STR_LEG_B_x: Annotated[int,Form()],
+    STR_LEG_B_y: Annotated[int,Form()],
+    STR_DISTANCE_A_x: Annotated[int,Form()],
+    STR_DISTANCE_A_y: Annotated[int,Form()],
+    STR_DISTANCE_B_x: Annotated[int,Form()],
+    STR_DISTANCE_B_y: Annotated[int,Form()],
+    STR_CLINCH_A_x: Annotated[int,Form()],
+    STR_CLINCH_A_y: Annotated[int,Form()],
+    STR_CLINCH_B_x: Annotated[int,Form()],
+    STR_CLINCH_B_y: Annotated[int,Form()],
+    STR_GROUND_A_x: Annotated[int,Form()],
+    STR_GROUND_A_y: Annotated[int,Form()],
+    STR_GROUND_B_x: Annotated[int,Form()],
+    STR_GROUND_B_y: Annotated[int,Form()],
+    KD_DIFF: Annotated[int,Form()],
+    SIG_STR_DIFF: Annotated[int,Form()],
+    TD_DIFF: Annotated[int,Form()],
+    SUB_ATT_DIFF: Annotated[int,Form()],
+    REV_DIFF: Annotated[int,Form()],
+    CTRL_DIFF: Annotated[int,Form()],
+    STRIKER_A: Annotated[int,Form()],
+    STRIKER_B: Annotated[int,Form()],
+    GRAPPLER_A: Annotated[int,Form()],
+    GRAPPLER_B: Annotated[int,Form()],
+    Record_A: Annotated[int,Form()],
+    Record_B: Annotated[int,Form()],
+    Peleas_A: Annotated[int,Form()],
+    Peleas_B: Annotated[int,Form()],
+    Puntos_A: Annotated[int,Form()],
+    Puntos_B: Annotated[int,Form()],
+    Racha_A: Annotated[int,Form()],
+    Racha_B: Annotated[int,Form()],
+    Victorias_KO_A: Annotated[int,Form()],
+    Victorias_KO_B: Annotated[int,Form()],
+    Victorias_Sub_A: Annotated[int,Form()],
+    Victorias_Sub_B: Annotated[int,Form()],
+    Victorias_Decision_A: Annotated[int,Form()],
+    Victorias_Decision_B: Annotated[int,Form()],
+    Derrotas_KO_A: Annotated[int,Form()],
+    Derrotas_KO_B: Annotated[int,Form()],
+    Derrotas_Sub_A: Annotated[int,Form()],
+    Derrotas_Sub_B: Annotated[int,Form()],
+    Derrotas_Decision_A: Annotated[int,Form()],
+    Derrotas_Decision_B: Annotated[int,Form()]):
+    """Lee datos y predice Post_Pelea"""
+
+    pelea_obj = PeleaP1(
+        TIME=TIME, KD_A=KD_A, KD_B=KD_B, SIG_STR_A=SIG_STR_A, SIG_STR_B=SIG_STR_B,
+        TD_PORC_A=TD_PORC_A, TD_PORC_B=TD_PORC_B, SUB_ATT_A=SUB_ATT_A, SUB_ATT_B=SUB_ATT_B,
+        REV_A=REV_A, REV_B=REV_B, CTRL_A=CTRL_A, CTRL_B=CTRL_B, 
+        TOTAL_STR_A_x=TOTAL_STR_A_x, TOTAL_STR_A_y=TOTAL_STR_A_y, TOTAL_STR_B_x=TOTAL_STR_B_x, TOTAL_STR_B_y=TOTAL_STR_B_y,
+        TD_A_x=TD_A_x, TD_A_y=TD_A_y, TD_B_x=TD_B_x, TD_B_y=TD_B_y,
+        STR_HEAD_A_x=STR_HEAD_A_x, STR_HEAD_A_y=STR_HEAD_A_y, STR_HEAD_B_x=STR_HEAD_B_x, STR_HEAD_B_y=STR_HEAD_B_y,
+        STR_BODY_A_x=STR_BODY_A_x, STR_BODY_A_y=STR_BODY_A_y, STR_BODY_B_x=STR_BODY_B_x, STR_BODY_B_y=STR_BODY_B_y,
+        STR_LEG_A_x=STR_LEG_A_x, STR_LEG_A_y=STR_LEG_A_y, STR_LEG_B_x=STR_LEG_B_x, STR_LEG_B_y=STR_LEG_B_y,
+        STR_DISTANCE_A_x=STR_DISTANCE_A_x, STR_DISTANCE_A_y=STR_DISTANCE_A_y, STR_DISTANCE_B_x=STR_DISTANCE_B_x, STR_DISTANCE_B_y=STR_DISTANCE_B_y,
+        STR_CLINCH_A_x=STR_CLINCH_A_x, STR_CLINCH_A_y=STR_CLINCH_A_y, STR_CLINCH_B_x=STR_CLINCH_B_x, STR_CLINCH_B_y=STR_CLINCH_B_y,
+        STR_GROUND_A_x=STR_GROUND_A_x, STR_GROUND_A_y=STR_GROUND_A_y, STR_GROUND_B_x=STR_GROUND_B_x, STR_GROUND_B_y=STR_GROUND_B_y,
+        KD_DIFF=KD_DIFF, SIG_STR_DIFF=SIG_STR_DIFF, TD_DIFF=TD_DIFF, SUB_ATT_DIFF=SUB_ATT_DIFF, REV_DIFF=REV_DIFF, CTRL_DIFF=CTRL_DIFF,
+        STRIKER_A=STRIKER_A, STRIKER_B=STRIKER_B, GRAPPLER_A=GRAPPLER_A, GRAPPLER_B=GRAPPLER_B,
+        Record_A=Record_A, Record_B=Record_B, Peleas_A=Peleas_A, Peleas_B=Peleas_B,
+        Puntos_A=Puntos_A, Puntos_B=Puntos_B, Racha_A=Racha_A, Racha_B=Racha_B,
+        Victorias_KO_A=Victorias_KO_A, Victorias_KO_B=Victorias_KO_B, Victorias_Sub_A=Victorias_Sub_A, Victorias_Sub_B=Victorias_Sub_B,
+        Victorias_Decision_A=Victorias_Decision_A, Victorias_Decision_B=Victorias_Decision_B,
+        Derrotas_KO_A=Derrotas_KO_A, Derrotas_KO_B=Derrotas_KO_B, Derrotas_Sub_A=Derrotas_Sub_A, Derrotas_Sub_B=Derrotas_Sub_B,
+        Derrotas_Decision_A=Derrotas_Decision_A, Derrotas_Decision_B=Derrotas_Decision_B
+    )
+
+    print(f'Predección de la pelea P1: {pelea_obj}')
+    y_pred, probs = predecirP1(pelea_obj)
+       
+    # Informacion del ganador
+    winner = "Peleador A" if y_pred == 0 else "Peleador B"
+    probabilidad = float(probs[0] if y_pred == 0 else probs[1])
+
+    result= {'winner': winner, 'probability': probabilidad}
+    return JSONResponse(result)
+
 @app.post('/POSTP2',response_class=HTMLResponse)
 def testGET(request: Request, 
             Peleador_A: Annotated[str, Form()], Peleador_B: Annotated[str,Form()]):
@@ -305,7 +420,7 @@ async def predict_json(
 def predict(request: Request, 
             pelea: Annotated[PeleaP2, Form()]):
     '''Predicción HTML para determinar el ganador de la pelea'''
-    print(f'POSTP2 Pelador_A:{pelea.Peleador_A} b: {pelea.Peleador_B}')
+    print(f'POSTP2 Pelador_A: {pelea.Peleador_A} b: {pelea.Peleador_B}')
     print(f'Predicción de la pelea P2: {pelea}')
 
     # Calcular la fila de datos para la pelea
