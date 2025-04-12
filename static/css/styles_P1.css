@@ -1,0 +1,34 @@
+.pelea-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
+    gap: 20px; /* Espacio entre las columnas */
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px 20px;
+    width: auto;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.pelea,.peleador-A, .peleador-B {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.submit-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    background-color: #3b0719;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #2b0213;
+}
