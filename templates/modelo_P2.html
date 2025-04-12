@@ -19,7 +19,9 @@
                 <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
             </div>
 
-            <div class="vs">VS</div>
+            <div class="vs">
+                <img src="{{ request.url_for('static', path='img/vsgif.gif') }}" alt="VS" class="vs-img">
+            </div>
 
             <div class="peleador">
                 <img id="img2" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador B" class="fighter-img">
