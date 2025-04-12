@@ -1,12 +1,12 @@
 function mostrarResultado(resultado) {
     const contenedor = document.getElementById('resultado');
-    contenedor.innerHTML = resultadoDiv.innerHTML = `
+    contenedor.innerHTML = `
         <div class="prediction-result">
         <h3>Resultado de la Predicción</h3>
         <p><strong>Ganador:</strong> ${resultado.winner}</p>
         <p><strong>Probabilidad:</strong> ${resultado.probability}%</p>
         </div>;`
-        // contenedor.style.display = 'block';
+        contenedor.style.display = 'block';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
