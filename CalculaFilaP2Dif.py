@@ -18,12 +18,22 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     fecha = pd.Timestamp.today()
 
     # Últimas tres peleas de cada peleador antes de esa fecha
-    peleas_a = df[(df['DATE'] < fecha) & 
-                  ((df['Peleador_A'] == peleador_a) | (df['Peleador_B'] == peleador_a))].sort_values(by='DATE').tail(3)
+    peleas_a = df[
+        (df['DATE'] < fecha) &
+        (
+            (df['Peleador_A'].str.lower() == peleador_a.lower()) |
+            (df['Peleador_B'].str.lower() == peleador_a.lower())
+        )
+    ].sort_values(by='DATE').tail(3)
 
-    peleas_b = df[(df['DATE'] < fecha) & 
-                  ((df['Peleador_A'] == peleador_b) | (df['Peleador_B'] == peleador_b))].sort_values(by='DATE').tail(3)
-
+    peleas_b = df[
+        (df['DATE'] < fecha) &
+        (
+            (df['Peleador_A'].str.lower() == peleador_b.lower()) |
+            (df['Peleador_B'].str.lower() == peleador_b.lower())
+        )
+    ].sort_values(by='DATE').tail(3)
+    
     if len(peleas_a) < 3 or len(peleas_b) < 3:
         return None
 
