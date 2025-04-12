@@ -83,8 +83,8 @@ input[type="text"] {
 }
 
 canvas {
-    margin-top: 1.5rem;
+    display: block;
+    margin: 1.5rem auto 0 auto; /* Centra el gráfico debajo del texto */
     max-width: 300px;
+    height: auto;
 }
-
-
