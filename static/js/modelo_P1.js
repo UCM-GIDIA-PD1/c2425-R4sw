@@ -1,12 +1,13 @@
 function mostrarResultado(resultado) {
+    const ganador=resultado.winner
+    const probabilidad=(resultado.probability*100).toFixed(2)
     const contenedor = document.getElementById('resultado');
     contenedor.innerHTML = `
-        <div class="prediction-result">
-        <h3>Resultado de la Predicción</h3>
-        <p><strong>Ganador:</strong> ${resultado.winner}</p>
-        <p><strong>Probabilidad:</strong> ${resultado.probability}%</p>
-        </div>`
-        contenedor.style.display = 'block';
+            <h3>Resultado de la Predicción</h3>
+            <p><strong>Ganador:</strong> ${ganador}</p>
+            <p><strong>Probabilidad:</strong> ${probabilidad}%</p>
+            </div>`
+    contenedor.style.display = 'block';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
