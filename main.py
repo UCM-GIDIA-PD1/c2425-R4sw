@@ -28,14 +28,17 @@ async def lifespan(app: FastAPI):
 # Configurar el manejador de ciclo de vida
 app = FastAPI(lifespan=lifespan)
 
-# Servir ficheros HTML en la carpeta static
-app.mount('/static', StaticFiles(directory='static', html = True), name='static')
+# Montar archivos estáticos
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Configurar templates
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse("inicio.html", {"request": request})
 
 app.mount("/data", StaticFiles(directory="data"), name="data")
-
-
-# Usar templates para devolver páginas HTML parametrizadas
-templates = Jinja2Templates(directory="templates")
 
 class PeleaP1(BaseModel):
     """Datos de una pelea"""
@@ -144,14 +147,6 @@ def predecirP2(fila_pelea):
     pred_y = app.modelP2.predict(fila_pelea)[0]
     prob_y = app.modelP2.predict_proba(fila_pelea)[0]
     return pred_y,prob_y
-
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-# @app.get("/p1", response_class=HTMLResponse)
-# async def predict_p1(request: Request):
-#     return RedirectResponse(url='./static/PrediccionP1.html')
 
 @app.get("/p1", response_class=HTMLResponse)
 async def predict_p1(request: Request):
