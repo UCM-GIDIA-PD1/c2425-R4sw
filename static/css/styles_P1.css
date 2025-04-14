@@ -29,6 +29,13 @@ input[type="number"] {
     grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
     gap: 20px; /* Espacio entre las columnas */
     margin-top: 20px;
+}
+
+.pelea,.peleador-A,.peleador-B {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
@@ -36,13 +43,24 @@ input[type="number"] {
     width: auto;
     text-align: center;
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    
+    height: auto;
+    max-height: fit-content;
 }
 
-.pelea,.peleador-A, .peleador-B {
+/* .peleador-A, .peleador-B {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px 20px;
+    width: auto;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+} */
 
 .submit-btn {
     padding: 0.75rem 2rem;
