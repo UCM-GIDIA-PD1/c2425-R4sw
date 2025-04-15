@@ -1,22 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap');
 
+.container {
+    max-width: 800px;
+    margin: 80px auto 20px; /* Ajustar margen superior para compensar el navbar */
+    padding: 10px;
+}
 
 .titulo-ml {
     text-align: center;
-    font-size: 2.8rem;
-    font-family: 'Oswald', sans-serif;
-    color: #e10600;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
-    border-bottom: 2px solid #e10600;
-    display: inline-block;
-    padding-bottom: 5px;
-    
-    position: absolute;   
-    left: 50%;      /* Centrado horizontal */
-    transform: translate(-50%, -50%); /* Ajuste para que el centro esté realmente en el medio */
+    color: #ff0000;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
 }
-
 
 body {
     background-color: #111; /* Fondo oscuro general */
@@ -24,31 +19,37 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.peleador-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 80px;
-    flex-wrap: nowrap; /* <-- evita salto en pantallas grandes */
-    margin-top: 2rem;
+.fighters-row {
+    display: flex; /* Asegurar que se usa flexbox */
+    flex-direction: row; /* Forzar disposición horizontal */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Alinear verticalmente */
+    gap: 15px; /* Espaciado entre los elementos */
+    margin: 10px auto;
+    width: 100%; /* Asegurar que ocupa todo el ancho disponible */
+    flex-wrap: nowrap; /* Evitar que los elementos se envuelvan */
 }
 
-.peleador {
-    flex: 0 0 60%; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.fighter-card {
+    width: 200px; /* Ancho fijo para las tarjetas */
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.fighter-image-container {
+    width: 150px; /* Tamaño reducido para las imágenes */
+    height: 150px;
+    margin: 0 auto 10px;
 }
 
 .fighter-img {
-    width: 80%;
-    height: 50vh;
-    object-fit: contain;
-    margin-bottom: 1rem;
-    border: none;
-    box-shadow: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
 }
-
 
 label {
     margin-bottom: 0.5rem;
@@ -66,26 +67,47 @@ input[type="text"] {
     text-align: center;
 }
 
+.fighter-input {
+    text-align: center;
+}
+
+.fighter-input label {
+    display: block;
+    color: white;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.fighter-input input {
+    width: 90%;
+    padding: 5px;
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+}
+
 .submit-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem; /* Ajusta según sea necesario */
+    text-align: center;
+    margin-top: 20px;
 }
 
 .submit-btn {
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    background-color: #3b0719;
+    background: #ff0000;
     color: white;
     border: none;
-    border-radius: 8px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-    background-color: #2b0213;
+    background: #cc0000;
+    transform: translateY(-2px);
 }
 
 .resultado-container {
@@ -103,16 +125,65 @@ canvas {
 }
 
 .vs {
+    width: 50px; /* Tamaño del contenedor VS */
+    height: 50px;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    margin: 0 10px;
+    background: #ff0000;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 50%;
 }
 
-.vs-img {
-    width: 200px; /* Ajustá este valor según el tamaño de tu imagen */
-    margin-top: 220px;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(2px 2px 6px red);
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .fighters-row {
+        flex-direction: column; /* Cambiar a disposición vertical en pantallas pequeñas */
+        gap: 20px;
+    }
+
+    .fighter-card {
+        width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .fighter-image-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .vs {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+/* Eliminar media queries que puedan interferir */
+@media (max-width: 1024px) {
+    .fighters-row {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .fighter-card {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .fighter-image-container {
+        width: 180px;
+        height: 180px;
+    }
+
+    .vs {
+        width: 60px;
+        height: 60px;
+        margin: 0 10px;
+    }
 }

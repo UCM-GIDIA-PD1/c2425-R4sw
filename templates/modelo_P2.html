@@ -3,36 +3,43 @@
 {% block title %}Simulación de Pelea - UFC{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ request.url_for('static', path='css/styles_P2.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/styles_P2.css') }}">
 {% endblock %}
-
 
 {% block content %}
 <div class="container">
     <h1 class="titulo-ml">UFC Fight Predictor</h1>
 
     <form id="formulario-p2" method="post" class="prediction-form">
-        <div class="peleador-container">
-            <div class="peleador">
-                <img id="img1" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador A" class="fighter-img">
-                <label for="Peleador_A">Peleador A:</label>
-                <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
+        <div class="fighters-row">
+            <div class="fighter-card">
+                <div class="fighter-image-container">
+                    <img id="img1" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador A" class="fighter-img">
+                </div>
+                <div class="fighter-input">
+                    <label for="Peleador_A">Peleador A:</label>
+                    <input type="text" id="Peleador_A" name="Peleador_A" required placeholder="Nombre del peleador">
+                </div>
             </div>
 
             <div class="vs">
                 <img src="{{ request.url_for('static', path='img/vsgif.gif') }}" alt="VS" class="vs-img">
             </div>
 
-            <div class="peleador">
-                <img id="img2" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador B" class="fighter-img">
-                <label for="Peleador_B">Peleador B:</label>
-                <input type="text" id="Peleador_B" name="Peleador_B" required placeholder="Nombre del peleador">
+            <div class="fighter-card">
+                <div class="fighter-image-container">
+                    <img id="img2" src="{{ request.url_for('static', path='images/default.jpg') }}" alt="Peleador B" class="fighter-img">
+                </div>
+                <div class="fighter-input">
+                    <label for="Peleador_B">Peleador B:</label>
+                    <input type="text" id="Peleador_B" name="Peleador_B" required placeholder="Nombre del peleador">
+                </div>
             </div>
         </div>
+
         <div class="submit-btn-container">
             <button type="submit" class="submit-btn">Predecir Ganador</button>
         </div>
-        </form>
     </form>
 
     <div id="resultado" class="resultado-container"></div>

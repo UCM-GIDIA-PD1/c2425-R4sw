@@ -73,9 +73,9 @@ a:hover {
 }
 
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 40px 20px;
+    max-width: 800px;
+    margin: 80px auto 20px; /* Ajustar margen superior para compensar el navbar */
+    padding: 10px;
 }
 
 .hero {
@@ -301,6 +301,211 @@ a:hover {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+.predictor-container {
+    max-width: 1200px;
+    margin: 80px auto 2rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.fighters-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.fighter-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.fighter-box:hover {
+    transform: translateY(-5px);
+}
+
+.fighter-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.fighter-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fighter-input {
+    text-align: center;
+}
+
+.fighter-input label {
+    display: block;
+    color: white;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.fighter-input input {
+    width: 90%;
+    padding: 5px;
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+}
+
+.vs-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff0000, #990000);
+    border-radius: 50%;
+    margin: 0 2rem;
+}
+
+.vs-text {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.submit-section {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.predict-button {
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.predict-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+}
+
+.titulo-ml {
+    text-align: center;
+    color: #ff0000;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.fighters-row {
+    display: flex; /* Usar flexbox para alinear horizontalmente */
+    justify-content: space-between; /* Espaciar los elementos uniformemente */
+    align-items: center; /* Alinear verticalmente */
+    gap: 20px; /* Espaciado entre los elementos */
+    margin: 20px auto;
+    width: 100%; /* Asegurar que ocupa todo el ancho disponible */
+    max-width: 1200px; /* Limitar el ancho máximo */
+}
+
+.fighter-card {
+    flex: 0 0 300px; /* Ancho fijo para las tarjetas */
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.fighter-image-container {
+    width: 250px; /* Tamaño del contenedor */
+    height: 300px; /* Aumentar la altura para evitar cortes */
+    margin: 0 auto 10px;
+    overflow: hidden; /* Asegurar que las imágenes no se desborden */
+    border-radius: 8px;
+    background-color: #000; /* Fondo negro para un mejor contraste */
+}
+
+.fighter-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mostrar toda la imagen sin recortarla */
+    border-radius: 8px;
+}
+
+.vs {
+    width: 120px; /* Aumentar el tamaño del contenedor VS */
+    height: 120px;
+    font-size: 2rem; /* Ajustar el tamaño del texto */
+}
+
+.vs-img {
+    width: 100%;
+    height: auto;
+    max-width: 120px; /* Asegurar que el GIF no exceda el contenedor */
+}
+
+.submit-btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+}
+
+.resultado-container {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+canvas {
+    display: block;
+    margin: 1.5rem auto 0 auto; /* Centra el gráfico debajo del texto */
+    max-width: 300px;
+    height: auto;
+}
+
+/* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
     .title {
         font-size: 2.5rem;
@@ -332,8 +537,29 @@ a:hover {
         grid-template-columns: 1fr;
         text-align: center;
     }
+
+    .fighters-row {
+        flex-direction: column; /* Cambiar a disposición vertical en pantallas pequeñas */
+        gap: 20px;
+    }
+
+    .fighter-card {
+        width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .fighter-image-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .vs {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
+/* Eliminar media queries que puedan interferir */
 @media (max-width: 968px) {
     .options {
         flex-direction: column;
@@ -341,5 +567,42 @@ a:hover {
     
     .option-card {
         width: 100%;
+    }
+
+    .fighters-section {
+        flex-direction: column;
+    }
+
+    .fighter-box {
+        width: 100%;
+    }
+
+    .vs-box {
+        margin: 1rem 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .fighters-row {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .fighter-card {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .fighter-image-container {
+        width: 180px;
+        height: 180px;
+    }
+
+    .vs {
+        width: 60px;
+        height: 60px;
+        margin: 0 10px;
     }
 }
