@@ -505,6 +505,55 @@ canvas {
     height: auto;
 }
 
+/* p1 */
+
+.p1-titulo{
+
+    font-size: 2.8rem;
+    font-family: 'Oswald', sans-serif;
+    color: #e10600;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #e10600;
+    display: inline-block;
+    padding-bottom: 5px; 
+}
+
+input[type="number"] {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 200px;
+    text-align: center;
+}
+
+.p1-pelea-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
+    gap: 20px; /* Espacio entre las columnas */
+    margin-top: 20px;
+}
+
+.p1-pelea,.p1-peleador-A,.p1-peleador-B {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px 20px;
+    width: auto;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    
+    height: auto;
+    max-height: fit-content;
+}
+/* fin p1 */
+
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
     .title {

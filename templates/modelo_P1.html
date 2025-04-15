@@ -3,17 +3,17 @@
 {% block title %}Simulación de Pelea - UFC{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ request.url_for('static', path='css/styles_P1.css') }}">
+<!-- <link rel="stylesheet" href="{{ request.url_for('static', path='css/styles_P1.css') }}"> -->
 {% endblock %}
 
 
 {% block content %}
 <div class="container">
-    <h1 class="titulo">Predicción Post-Combate UFC</h1>
+    <h1 class="p1-titulo">Predicción Post-Combate UFC</h1>
 
     <form id="formulario-p1" method="post" class="prediction-form">
-        <div class="pelea-container">
-            <div class="peleador-A">
+        <div class="p1-pelea-container">
+            <div class="p1-peleador-A">
                 <label>KD_A:</label><br>
                 <input type="number" name="KD_A" value="0"><br>
             
@@ -116,7 +116,7 @@
                 <label>Derrotas_Decision_A:</label><br>
                 <input type="number" name="Derrotas_Decision_A" value="0"><br>     
             </div>
-            <div class="peleador-B">
+            <div class="p1-peleador-B">
                 <label>KD_B:</label><br>
                 <input type="number" name="KD_B" value="0"><br>
             
@@ -219,7 +219,7 @@
                 <label>Derrotas_Decision_B:</label><br>
                 <input type="number" name="Derrotas_Decision_B" value="0"><br>
             </div>
-            <div class="pelea">
+            <div class="p1-pelea">
                 <label>TIME:</label><br>
                 <input type="number" name="TIME" value="0"><br>
 
