@@ -431,26 +431,26 @@ a:hover {
     display: flex; /* Usar flexbox para alinear horizontalmente */
     justify-content: space-between; /* Espaciar los elementos uniformemente */
     align-items: center; /* Alinear verticalmente */
-    gap: 20px; /* Espaciado entre los elementos */
+    gap: 30px; /* Espaciado entre los elementos */
     margin: 20px auto;
     width: 100%; /* Asegurar que ocupa todo el ancho disponible */
-    max-width: 1200px; /* Limitar el ancho máximo */
+    max-width: 1400px; /* Limitar el ancho máximo */
 }
 
 .fighter-card {
-    flex: 0 0 300px; /* Ancho fijo para las tarjetas */
+    flex: 0 0 350px; /* Ancho fijo para las tarjetas */
     background: rgba(0, 0, 0, 0.7);
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 12px;
+    padding: 20px;
     text-align: center;
 }
 
 .fighter-image-container {
-    width: 250px; /* Tamaño del contenedor */
-    height: 300px; /* Aumentar la altura para evitar cortes */
-    margin: 0 auto 10px;
+    width: 300px; /* Tamaño del contenedor */
+    height: 350px; /* Aumentar la altura para evitar cortes */
+    margin: 0 auto 15px;
     overflow: hidden; /* Asegurar que las imágenes no se desborden */
-    border-radius: 8px;
+    border-radius: 12px;
     background-color: #000; /* Fondo negro para un mejor contraste */
 }
 
