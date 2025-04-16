@@ -532,7 +532,19 @@ input[type="number"] {
     text-align: center;
 }
 
+.p1-pelea-container h2 {
+    color: #ffffff; /* Color del texto */
+    background-color: #ff0000; /* Fondo del título */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1.5rem; /* Tamaño de la fuente */
+    text-align: center; /* Centrar el texto */
+    margin: -20px -20px 20px -20px; /* Ajustar márgenes para que el fondo ocupe todo el ancho */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
 .p1-pelea-container {
+    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
     gap: 20px; /* Espacio entre las columnas */
