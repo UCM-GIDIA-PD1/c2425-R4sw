@@ -149,7 +149,8 @@ a:hover {
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 2rem;
-    width: 350px;
+    height: 400px;
+    width: 500px;
     flex-shrink: 0;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
