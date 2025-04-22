@@ -380,24 +380,6 @@ a:hover {
     text-align: center;
 }
 
-.vs-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #ff0000, #990000);
-    border-radius: 50%;
-    margin: 0 2rem;
-}
-
-.vs-text {
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
 .submit-section {
     text-align: center;
     margin-top: 3rem;
@@ -437,6 +419,10 @@ a:hover {
     margin: 20px auto;
     width: 100%; /* Asegurar que ocupa todo el ancho disponible */
     max-width: 1400px; /* Limitar el ancho máximo */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fighter-card {
@@ -464,10 +450,19 @@ a:hover {
 }
 
 .vs {
-    width: 120px; /* Aumentar el tamaño del contenedor VS */
-    height: 120px;
-    font-size: 2rem; /* Ajustar el tamaño del texto */
+    width: 150px; /* Tamaño del contenedor VS */
+    height: 150px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 50%;
 }
+
 
 .vs-img {
     width: 100%;
