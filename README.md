@@ -19,7 +19,20 @@
     * `modelo_p2.js` – lógica de la página de predicción post‑combate.
   * `img/` – colección de imágenes, iconos y logotipos empleados por la aplicación.
 
+- La carpeta templates agrupa las plantillas HTML que el motor de renderizado sirve dinámicamente. Su organización refleja la composición visual de la aplicación:
+ * `base.html`, esqueleto común que define la estructura principal (doctype, <head>, bloques de contenido, carga de scripts/estilos). El resto de páginas extienden esta plantilla.
+ * `header.html` y `footer.html`, fragmentos parciales incluidos por base.html para mantener un encabezado y pie de página coherentes en todo el sitio.
+ * `navbar.html`, componente de navegación reutilizable con los enlaces a las distintas secciones.
+ * `inicio.html`, página de bienvenida que presenta la aplicación y redirige a las áreas de predicción.
+ * `modelo_P1.html`, vista dedicada a las predicciones pre‑combate (carga el script modelo_p1.js).
+ * `modelo_P2.html` vista análoga para las predicciones post‑combate (carga el script modelo_p2.js).
 
+- El archivo `main.py` contiene la configuración y la implementación principal de la API, utilizando FastAPI como framework para gestionar las rutas y la lógica del servidor.
+
+- El archivo `PasarAP2Difdf.py`,se encarga de procesar las estadísticas de los peleadores para calcular las diferencias entre los valores de dos peleadores A y B.
+
+- El archivo `CalculaFilaP2Dif.py`, se encarga de calcular las estadísticas ponderadas de las últimas tres peleas previas de dos peleadores dados, y genera una fila con las diferencias entre ellos.
+ 
 ### Instrucciones para iniciar el entorno de desarrollo con sus dependencias
 
 ### Instrucciones para ejecutar ejecutar y probar el servidor web
