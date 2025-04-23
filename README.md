@@ -1,41 +1,39 @@
 # Servidor web para UFC Predictor: Sistema de predicción para la UFC
 
-## Proyecto de Datos I
-
-### Estructura del repositorio
+## Estructura del repositorio
 
 - La carpeta data contiene:
-  * `imagenes.json`, archivo que contiene las URL de las fotografías de los peleadores, estas se mostraran en la pagina web.
-  * `peleas.parquet`, un dataset en formato Parquet que funciona como la base de datos del proyecto.
+  * `imagenes.json`: Archivo que contiene las URL de las fotografías de los peleadores, estas se mostraran en la pagina web.
+  * `peleas.parquet`: Dataset en formato Parquet que funciona como la base de datos del proyecto.
 
 - La carpeta models alberga dos modelos XGBoost entrenados:
-  * modelP1.xgb – modelo optimizado para generar predicciones post‑combate.
-  * modelP2.xgb – modelo optimizado para generar predicciones pre‑combate.
+  * `modelP1.xgb`: Modelo optimizado para generar predicciones post‑combate.
+  * `modelP2.xgb`: Modelo optimizado para generar predicciones pre‑combate.
   
 - La carpeta static contiene todos los activos que el navegador recibe “tal cual”, sin procesamiento del servidor:
-  * `style.css` – hoja de estilos que fija la tipografía, la paleta de color y la maquetación responsive de la interfaz.
-  * `js/` – subdirectorio con dos scripts JavaScript:
-    * `modelo_p1.js` – lógica de la página de predicción pre‑combate.
-    * `modelo_p2.js` – lógica de la página de predicción post‑combate.
-  * `img/` – colección de imágenes, iconos y logotipos empleados por la aplicación.
+  * `style.css`: Hoja de estilos que fija la tipografía, la paleta de color y la maquetación responsive de la interfaz.
+  * `js/`: Subdirectorio con dos scripts JavaScript:
+    * `modelo_p1.js`: Lógica de la página de predicción pre‑combate.
+    * `modelo_p2.js`: Lógica de la página de predicción post‑combate.
+  * `img/`: Carpeta que cuenta con la colección de imágenes, iconos y logotipos empleados por la aplicación.
 
 - La carpeta templates agrupa las plantillas HTML que el motor de renderizado sirve dinámicamente. Su organización refleja la composición visual de la aplicación:
- * `base.html`, esqueleto común que define la estructura principal (doctype, <head>, bloques de contenido, carga de scripts/estilos). El resto de páginas extienden esta plantilla.
- * `header.html` y `footer.html`, fragmentos parciales incluidos por base.html para mantener un encabezado y pie de página coherentes en todo el sitio.
- * `navbar.html`, componente de navegación reutilizable con los enlaces a las distintas secciones.
- * `inicio.html`, página de bienvenida que presenta la aplicación y redirige a las áreas de predicción.
- * `modelo_P1.html`, vista dedicada a las predicciones pre‑combate (carga el script modelo_p1.js).
- * `modelo_P2.html` vista análoga para las predicciones post‑combate (carga el script modelo_p2.js).
+ * `base.html`: Esqueleto común que define la estructura principal (doctype, <head>, bloques de contenido, carga de scripts/estilos). El resto de páginas extienden esta plantilla.
+ * `header.html` y `footer.html`: Fragmentos parciales incluidos por base.html para mantener un encabezado y pie de página coherentes en todo el sitio.
+ * `navbar.html`: Componente de navegación reutilizable con los enlaces a las distintas secciones.
+ * `inicio.html`: Página de bienvenida que presenta la aplicación y redirige a las áreas de predicción.
+ * `modelo_P1.html`: Vista dedicada a las predicciones pre‑combate (carga el script modelo_p1.js).
+ * `modelo_P2.html`: Vista análoga para las predicciones post‑combate (carga el script modelo_p2.js).
 
 - El archivo `main.py` contiene la configuración y la implementación principal de la API, utilizando FastAPI como framework para gestionar las rutas y la lógica del servidor.
 
-- El archivo `PasarAP2Difdf.py`,se encarga de procesar las estadísticas de los peleadores para calcular las diferencias entre los valores de dos peleadores A y B.
+- El archivo `PasarAP2Difdf.py` se encarga de procesar las estadísticas de los peleadores para calcular las diferencias entre los valores de dos peleadores A y B.
 
-- El archivo `CalculaFilaP2Dif.py`, se encarga de calcular las estadísticas ponderadas de las últimas tres peleas previas de dos peleadores dados, y genera una fila con las diferencias entre ellos.
+- El archivo `CalculaFilaP2Dif.py` se encarga de calcular las estadísticas ponderadas de las últimas tres peleas previas de dos peleadores dados, y genera una fila con las diferencias entre ellos.
 
-- El archivo Dockerfile es un archivo de configuración que define cómo se construye la imagen Docker para el proyecto.
+- El archivo `Dockerfile` es un archivo de configuración que define cómo se construye la imagen Docker para el proyecto.
   
-### Instrucciones para iniciar el entorno de desarrollo con sus dependencias
+## Instrucciones para iniciar el entorno de desarrollo con sus dependencias
 
 A continuación se detallan los pasos necesarios para iniciar el proyecto en un entorno de desarrollo local, asegurando que todas las dependencias estén correctamente instaladas.
 
@@ -47,6 +45,7 @@ Primero, clona el repositorio en tu máquina local usando Git:
 git clone https://github.com/UCM-GIDIA-PD1/c2425-R4sw.git
 cd c2425-R4sw
 ```
+
 #### 2. Instala las dependencias con el siguiente comando:
 
 ```
@@ -66,7 +65,7 @@ source venv/bin/activate
 .venv/Scripts/activate
 ```
 
-### Instrucciones para ejecutar ejecutar y probar el servidor web
+## Instrucciones para ejecutar ejecutar y probar el servidor web
 
 #### 1. Iniciar la aplicación
 
@@ -87,16 +86,16 @@ http://127.0.0.1:8000
 
 Para detener el servidor, simplemente presiona `Ctrl+C` en la terminal.
 
-### Instrucciones para crear la imagen docker y ejecutar el contenedor
+## Instrucciones para crear la imagen docker y ejecutar el contenedor
 
 Esta sección explica cómo empaquetar por completo la aplicación dentro de una imagen Docker y ponerla en marcha en un contenedor, sin necesidad de instalar Python ni dependencias en tu máquina anfitriona.
 
-### 1. Pre‑requisitos
+#### 1. Pre‑requisitos
 
 - Tener Docker Engine instalado y en funcionamiento (versión 20.10 o superior).
 - Estar situado en la raíz del repositorio, donde se encuentra el `Dockerfile`.
 
-### 2. Construir la imagen
+#### 2. Construir la imagen
 
 Ejecuta el siguiente comando para crear la imagen; sustituye **`nombre-de-tu-imagen`** por el tag que prefieras.
 
@@ -131,7 +130,7 @@ Si modificas código o dependencias, vuelve a construir la imagen:
 docker build --no-cache -t nombre-de-tu-imagen .
 ```
 
-### Integrantes 
+## Integrantes 
  -  Andrés Fernández Ortega
  -  Francisco José Pastor Ruiz
  -  Mario Granados Guerrero
