@@ -1,15 +1,19 @@
+// Esperar a que el DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", () => {
     const input1 = document.getElementById("Peleador_A");
     const input2 = document.getElementById("Peleador_B");
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
+    // Voltear la imagen del segundo peleador horizontalmente para simular enfrentamiento
     img2.style.transform = "scaleX(-1)"; // Voltear la imagen del segundo peleador
 
+    // Imagen por defecto en caso de que no se encuentre imagen específica
     const defaultImg = "/static/img/peleador_default.png";
 
     let imagenesData = [];
 
+    // Cargar el archivo JSON con los nombres e imágenes de los peleadores
     // Cargar el JSON de imágenes una vez al inicio
     fetch("/data/imagenes.json")
         .then(res => res.json())
@@ -20,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error al cargar imagenes.json:", error);
         });
 
+    // Buscar y devolver la URL de la imagen correspondiente al nombre del peleador
     function obtenerImagen(nombre) {
         const nombreNormalizado = nombre.trim().toLowerCase();
         const peleador = imagenesData.find(p => p.Nombre.trim().toLowerCase() === nombreNormalizado);
@@ -31,27 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Actualizar la imagen mostrada según el valor actual del input
     function actualizarImagen(input, img) {
         const imagenURL = obtenerImagen(input.value);
         img.src = imagenURL;
     }
 
-    // Mostrar las imágenes predeterminadas al cargar la página
+    // Mostrar imágenes predeterminadas al cargar la página
     actualizarImagen(input1, img1);
     actualizarImagen(input2, img2);
 
+    // Actualizar imagen en tiempo real al modificar el input
     input1.addEventListener("input", () => actualizarImagen(input1, img1));
     input2.addEventListener("input", () => actualizarImagen(input2, img2));
 
-    // Manejo del formulario de predicción
+    // Obtener referencias al formulario y al contenedor de resultados
     const form = document.getElementById("formulario-p2");
     const resultadoDiv = document.getElementById("resultado");
 
-    // Antes de usar el gráfico, asegúrate de borrar el anterior si existe
+    // Mantener una instancia del gráfico para poder destruirlo antes de crear uno nuevo
     let chartInstance = null;
 
     console.log("esto es una prueba")
 
+    // Manejar el envío del formulario, hacer fetch al servidor y mostrar predicción
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -61,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("esto es una prueba")
 
         try {
+            // Enviar datos de los peleadores al backend y recibir la predicción
             const response = await fetch("/predictP2_json", {
                 method: "POST",
                 headers: {
@@ -90,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
+            // Crear el gráfico circular para mostrar visualmente las probabilidades
             const ctx = document.getElementById('pieChart').getContext('2d');
 
             // Determinar el orden de los datos según quién sea el ganador
@@ -97,10 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const peleadorB_prob = (100 - peleadorA_prob).toFixed(2);
 
 
+            // Si ya hay un gráfico creado, destruirlo antes de crear uno nuevo
             if (chartInstance) {
                 chartInstance.destroy();
             }
 
+            // Crear una nueva instancia del gráfico circular (pie chart)
             chartInstance = new Chart(ctx, {
                 type: 'pie',
                 data: {
@@ -125,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
+        // Mostrar mensaje de error si la predicción falla
         } catch (error) {
             console.error("Error en la predicción:", error);
             resultadoDiv.innerHTML = `
