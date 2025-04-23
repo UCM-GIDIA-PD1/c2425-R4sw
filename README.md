@@ -89,21 +89,47 @@ Para detener el servidor, simplemente presiona `Ctrl+C` en la terminal.
 
 ### Instrucciones para crear la imagen docker y ejecutar el contenedor
 
-#### 5. (Opcional) Uso de Docker
+Esta sección explica cómo empaquetar por completo la aplicación dentro de una imagen Docker y ponerla en marcha en un contenedor, sin necesidad de instalar Python ni dependencias en tu máquina anfitriona.
 
-Si prefieres no instalar las dependencias manualmente y trabajar con Docker, puedes construir y ejecutar la aplicación dentro de un contenedor Docker con los siguientes comandos:
+### 1. Pre‑requisitos
 
-* Construir la imagen Docker:
+- Tener Docker Engine instalado y en funcionamiento (versión 20.10 o superior).
+- Estar situado en la raíz del repositorio, donde se encuentra el `Dockerfile`.
+
+### 2. Construir la imagen
+
+Ejecuta el siguiente comando para crear la imagen; sustituye **`nombre-de-tu-imagen`** por el tag que prefieras.
+
 ```
-docker build -t nombre-de-tu-imagen .
+docker run --name peleas-app -p 8000:8000 nombre-de-tu-imagen
 ```
 
- * Ejecutar el contenedor:
+* `--name peleas-app` asigna un nombre legible al contenedor (opcional).
+* `-p 8000:8000` hace accesible la API en http://localhost:8000.
+
+#### 3. Probar la aplicación
+Con el contenedor corriendo, abre el navegador y accede a http://localhost:8000.
+
+#### 4. Detener y eliminar el contenedor
+Para parar temporalmente:
+
 ```
-docker run -p 8000:8000 nombre-de-tu-imagen
+docker stop peleas-app
 ```
 
-El contenedor expondrá el puerto 8000, por lo que la aplicación estará disponible en http://127.0.0.1:8000.
+Para eliminarlo definitivamente (contenedor detenido):
+
+```
+docker rm peleas-app
+```
+
+#### 5. (Optativo) Reconstruir la imagen tras cambios
+
+Si modificas código o dependencias, vuelve a construir la imagen:
+
+```
+docker build --no-cache -t nombre-de-tu-imagen .
+```
 
 ### Integrantes 
  -  Andrés Fernández Ortega
