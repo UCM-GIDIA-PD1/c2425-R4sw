@@ -3,6 +3,8 @@ import math
 import os 
 from PasarAP2Difdf import crearDfDif
 
+ # Calcula una fila de estadísticas para un enfrentamiento entre dos peleadores
+ # usando sus últimas 3 peleas para calcular estadísticas ponderadas y diferencias.
 def calcular_fila_pelea(peleador_a, peleador_b):
     """
     Realizado por Mateo Turati.
@@ -10,6 +12,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     dados y devuelve una sola fila correspondiente al combate usando las diferencias entre ellos.
     Si no hay más de tres peleas devuelve None. (Tener en cuenta para mostrar algo en la web igual)
     """
+    # Cargar dataset de peleas y normalizar nombres de peleadores
     ruta_df =  os.path.join("data","peleas.parquet")
     df = pd.read_parquet(ruta_df)
     df['DATE'] = pd.to_datetime(df['DATE'])
@@ -20,7 +23,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     df['Peleador_B'] = df['Peleador_B'].str.lower()
     fecha = pd.Timestamp.today()
 
-    # Últimas tres peleas de cada peleador antes de esa fecha
+    # Filtrar y ordenar las últimas tres peleas previas de cada peleador
     peleas_a = df[
         (df['DATE'] < fecha) &
         (
@@ -37,9 +40,11 @@ def calcular_fila_pelea(peleador_a, peleador_b):
         )
     ].sort_values(by='DATE').tail(3)
     
+    # Si alguno de los peleadores tiene menos de 3 peleas previas, no se puede calcular
     if len(peleas_a) < 3 or len(peleas_b) < 3:
         return None
 
+    # Columnas específicas de cada peleador y sus versiones genéricas para mapear estadísticas
     columnas_a = [
         'KD_A', 'SIG_STR_A', 'TD_PORC_A', 'SUB_ATT_A', 'REV_A', 'CTRL_A',
         'TOTAL_STR_A_x', 'TOTAL_STR_A_y', 'TD_A_x', 'TD_A_y', 'STR_HEAD_A_x',
@@ -71,6 +76,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     ]
 
 
+    # Calcula una media ponderada exponencial de las estadísticas pasadas
     def media_ponderada(peleas, peleador, columnas_a, columnas_b, columnas_gen):
         dic = {}
         peleas = peleas.sort_values(by='DATE', ascending=False)
@@ -96,6 +102,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
         pelea_ajustada[columnas_a[i]] = media_a[columnas_gen[i]]
         pelea_ajustada[columnas_b[i]] = media_b[columnas_gen[i]]
 
+    # Actualiza el récord del peleador según el resultado de su última pelea
     def actualizar_record(peleador, ult_pelea):
         """"Actualiza el record teniendo en cuenta el resultado de su última pelea"""
         if peleador == ult_pelea["Peleador_A"] and ult_pelea["WINNER"] == 0:
@@ -110,6 +117,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada['Record_A'] = actualizar_record(peleador_a, peleas_a.iloc[-1])
     pelea_ajustada['Record_B'] = actualizar_record(peleador_b, peleas_b.iloc[-1])
 
+    # Actualiza la racha ganadora del peleador
     def actualizar_racha(peleador, ult_pelea):
         """"Actualiza la racha teniendo en cuenta el resultado de su última pelea"""
         if peleador == ult_pelea["Peleador_A"] and ult_pelea["WINNER"] == 0:
@@ -122,6 +130,7 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada['Racha_A'] = actualizar_racha(peleador_a, peleas_a.iloc[-1])
     pelea_ajustada['Racha_B'] = actualizar_racha(peleador_b, peleas_b.iloc[-1])
 
+    # Calcula los puntos del peleador en base al sistema ELO modificado
     def actualizar_puntos(peleador, ult_pelea, k=20):
         """Actualiza los puntos del peleador teniendo en cuenta la diferencia de nivel y normalización."""
         A, B = ult_pelea["Peleador_A"], ult_pelea["Peleador_B"]
@@ -143,13 +152,14 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada["Puntos_A"] = actualizar_puntos(peleador_a, peleas_a.iloc[-1])
     pelea_ajustada["Puntos_B"] = actualizar_puntos(peleador_b, peleas_b.iloc[-1])
 
+    # Actualiza el número total de peleas del peleador
     def act_peleas(peleador, ult_pelea):
         return ult_pelea["Peleas_A"] + 1 if peleador == ult_pelea["Peleador_A"] else ult_pelea["Peleas_B"] + 1
 
     pelea_ajustada["Peleas_A"] = act_peleas(peleador_a, peleas_a.iloc[-1])
     pelea_ajustada["Peleas_B"] = act_peleas(peleador_b, peleas_b.iloc[-1])
 
-    # Métricas derivadas
+    # Cálculo de diferencias estadísticas entre los dos peleadores
     pelea_ajustada['KD_DIFF'] = pelea_ajustada['KD_A'] - pelea_ajustada['KD_B']
     pelea_ajustada['SIG_STR_DIFF'] = pelea_ajustada['SIG_STR_A'] - pelea_ajustada['SIG_STR_B']
     pelea_ajustada['TD_DIFF'] = (pelea_ajustada['TD_A_x'] / (pelea_ajustada['TD_A_y'] + 1)) - (pelea_ajustada['TD_B_x'] / (pelea_ajustada['TD_B_y'] + 1))
@@ -157,8 +167,10 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     pelea_ajustada['REV_DIFF'] = pelea_ajustada['REV_A'] - pelea_ajustada['REV_B']
     pelea_ajustada['CTRL_DIFF'] = pelea_ajustada['CTRL_A'] - pelea_ajustada['CTRL_B']
 
+    # Crear DataFrame con la fila de estadísticas ajustadas
     df_pond = pd.DataFrame([pelea_ajustada])
 
+    # Calcular las diferencias finales con la función externa
     df_dif = crearDfDif(df_pond)
     
     return df_dif

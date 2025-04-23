@@ -347,8 +347,7 @@ async def predictP1_json(request: Request,
     Derrotas_Sub_B: Annotated[int,Form()],
     Derrotas_Decision_A: Annotated[int,Form()],
     Derrotas_Decision_B: Annotated[int,Form()]):
-    """Lee datos y predice Post_Pelea"""
-
+    # Extraer los valores de la pelea
     pelea_obj = PeleaP1(
         TIME=TIME, KD_A=KD_A, KD_B=KD_B, SIG_STR_A=SIG_STR_A, SIG_STR_B=SIG_STR_B,
         TD_PORC_A=TD_PORC_A, TD_PORC_B=TD_PORC_B, SUB_ATT_A=SUB_ATT_A, SUB_ATT_B=SUB_ATT_B,
@@ -377,7 +376,7 @@ async def predictP1_json(request: Request,
     # Informacion del ganador
     winner = "Peleador A" if y_pred == 0 else "Peleador B"
     probabilidad = float(probs[0] if y_pred == 0 else probs[1])
-
+    # Crear un diccionario con los resultados
     result= {'winner': winner, 'probability': probabilidad}
     return JSONResponse(result)
 
@@ -390,6 +389,7 @@ def testGET(request: Request,
 
 @app.post("/predictP2_json")
 async def predict_json(
+    # POST request para predecir el ganador de la pelea
     request: Request,
     Peleador_A: str = Form(...),
     Peleador_B: str = Form(...)
@@ -414,7 +414,8 @@ async def predict_json(
 @app.post("/predictP2_html", response_class=HTMLResponse)
 def predict(request: Request, 
             pelea: Annotated[PeleaP2, Form()]):
-    '''Predicción HTML para determinar el ganador de la pelea'''
+    # Predicción HTML para determinar el ganador de la pelea
+    # Extraer los valores de la pelea
     print(f'POSTP2 Pelador_A: {pelea.Peleador_A} b: {pelea.Peleador_B}')
     print(f'Predicción de la pelea P2: {pelea}')
 

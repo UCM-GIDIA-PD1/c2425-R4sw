@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
+/* Estilos base para la página: cuerpo y html ocupan todo el alto, fondo con imagen fija */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,6 +17,7 @@ html, body {
     flex-direction: column;
 }
 
+/* Ajustes adicionales del cuerpo: fuente, color y altura mínima */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -24,6 +26,7 @@ body {
     position: relative;
 }
 
+/* Encabezado y pie de página con fondo oscuro y bordes rojos */
 header, footer {
     background-color: #111;
     color: #fff;
@@ -33,6 +36,7 @@ header, footer {
     border-bottom: 2px solid red;
 }
 
+/* Menú de navegación centrado en fila */
 nav ul {
     list-style: none;
     display: flex;
@@ -42,6 +46,7 @@ nav ul {
     gap: 2rem;
 }
 
+/* Estilo de los enlaces del menú */
 nav a {
     color: white;
     text-decoration: none;
@@ -52,11 +57,13 @@ nav a {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Efecto hover en enlaces del menú */
 nav a:hover {
     background-color: red;
     color: black;
 }
 
+/* Contenido principal centrado y con padding */
 main {
     padding: 2rem;
     max-width: 800px;
@@ -81,6 +88,7 @@ a:hover {
     padding: 10px;
 }
 
+/* Sección principal de bienvenida con alineación centrada */
 .hero {
     min-height: 100vh;
     width: 100%;
@@ -90,6 +98,7 @@ a:hover {
     position: relative;
 }
 
+/* Superposición oscura encima del fondo para mejorar la legibilidad */
 .background-overlay {
     position: fixed;
     top: 0;
@@ -100,6 +109,7 @@ a:hover {
     z-index: 1;
 }
 
+/* Encabezado principal con fondo semitransparente y sombra */
 .header {
     width: 100%;
     text-align: center;
@@ -145,6 +155,7 @@ a:hover {
     justify-content: center;
 }
 
+/* Tarjetas de opciones con efecto de desenfoque y sombra */
 .option-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -203,6 +214,7 @@ a:hover {
     box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
 }
 
+/* Barra de navegación fija en la parte superior con fondo oscuro y desenfoque */
 .navbar {
     position: fixed;
     top: 0;
@@ -274,6 +286,7 @@ a:hover {
     margin: 0 auto;
 }
 
+/* Títulos de las secciones del pie de página */
 .footer-section h3 {
     color: #ff0000;
     margin-bottom: 1rem;
@@ -306,6 +319,7 @@ a:hover {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+/* Contenedor principal del predictor con fondo oscuro y bordes redondeados */
 .predictor-container {
     max-width: 1200px;
     margin: 80px auto 2rem;
@@ -328,6 +342,7 @@ a:hover {
     margin: 2rem 0;
 }
 
+/* Tarjeta individual del peleador */
 .fighter-box {
     flex: 1;
     display: flex;
@@ -380,6 +395,7 @@ a:hover {
     text-align: center;
 }
 
+/* Sección del botón de envío */
 .submit-section {
     text-align: center;
     margin-top: 3rem;
@@ -507,6 +523,7 @@ canvas {
 
 /* p1 */
 
+/* Estilo del título principal para P1 */
 .p1-titulo{
 
     font-size: 2.8rem;
@@ -540,6 +557,7 @@ input[type="number"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
 }
 
+/* Contenedor para disposición de datos de pelea en tres columnas */
 .p1-pelea-container {
     
     display: grid;
@@ -566,7 +584,7 @@ input[type="number"] {
 }
 /* fin p1 */
 
-/* Media query para pantallas pequeñas */
+/* Adaptaciones responsivas para pantallas pequeñas */
 @media (max-width: 768px) {
     .title {
         font-size: 2.5rem;
