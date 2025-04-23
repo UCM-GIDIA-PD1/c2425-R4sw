@@ -32,12 +32,78 @@
 - El archivo `PasarAP2Difdf.py`,se encarga de procesar las estadísticas de los peleadores para calcular las diferencias entre los valores de dos peleadores A y B.
 
 - El archivo `CalculaFilaP2Dif.py`, se encarga de calcular las estadísticas ponderadas de las últimas tres peleas previas de dos peleadores dados, y genera una fila con las diferencias entre ellos.
- 
+
+- El archivo Dockerfile es un archivo de configuración que define cómo se construye la imagen Docker para el proyecto.
+  
 ### Instrucciones para iniciar el entorno de desarrollo con sus dependencias
+
+A continuación se detallan los pasos necesarios para iniciar el proyecto en un entorno de desarrollo local, asegurando que todas las dependencias estén correctamente instaladas.
+
+#### 1. Clona el repositorio:
+
+Primero, clona el repositorio en tu máquina local usando Git:
+
+```
+git clone https://github.com/UCM-GIDIA-PD1/c2425-R4sw.git
+cd c2425-R4sw
+```
+#### 2. Instala las dependencias con el siguiente comando:
+
+```
+uv sync
+```
+Esto creará automáticamente un entorno virtual y descargará todas las dependencias especificadas.
+
+#### 3. Activar el entorno virtual 
+
+* En Linux/macOS:
+```
+source venv/bin/activate
+```
+
+* En Windows:
+```
+.venv/Scripts/activate
+```
 
 ### Instrucciones para ejecutar ejecutar y probar el servidor web
 
+#### 1. Iniciar la aplicación
+
+Para iniciar el servidor de desarrollo de FastAPI, usa el siguiente comando:
+```
+uvicorn main:app --reload
+```
+El parámetro `--reload` permite que el servidor se reinicie automáticamente cada vez que realices cambios en el código.
+
+#### 2. Acceder a la aplicación
+   
+Una vez que el servidor esté corriendo, puedes acceder a la aplicación desde tu navegador en la siguiente URL:
+
+```
+http://127.0.0.1:8000
+```
+#### 3. Detener el servidor
+
+Para detener el servidor, simplemente presiona `Ctrl+C` en la terminal.
+
 ### Instrucciones para crear la imagen docker y ejecutar el contenedor
+
+#### 5. (Opcional) Uso de Docker
+
+Si prefieres no instalar las dependencias manualmente y trabajar con Docker, puedes construir y ejecutar la aplicación dentro de un contenedor Docker con los siguientes comandos:
+
+* Construir la imagen Docker:
+```
+docker build -t nombre-de-tu-imagen .
+```
+
+ * Ejecutar el contenedor:
+```
+docker run -p 8000:8000 nombre-de-tu-imagen
+```
+
+El contenedor expondrá el puerto 8000, por lo que la aplicación estará disponible en http://127.0.0.1:8000.
 
 ### Integrantes 
  -  Andrés Fernández Ortega
