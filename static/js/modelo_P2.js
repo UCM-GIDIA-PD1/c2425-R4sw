@@ -1,24 +1,24 @@
-// Esperar a que el DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", () => {
     const input1 = document.getElementById("Peleador_A");
     const input2 = document.getElementById("Peleador_B");
+    const datalist1 = document.getElementById("peleadoresA");
+    const datalist2 = document.getElementById("peleadoresB");
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
-
-    // Voltear la imagen del segundo peleador horizontalmente para simular enfrentamiento
-    img2.style.transform = "scaleX(-1)"; // Voltear la imagen del segundo peleador
 
     // Imagen por defecto en caso de que no se encuentre imagen específica
     const defaultImg = "/static/img/peleador_default.png";
 
     let imagenesData = [];
+    let nombresPeleadores = [];
 
     // Cargar el archivo JSON con los nombres e imágenes de los peleadores
-    // Cargar el JSON de imágenes una vez al inicio
     fetch("/data/imagenes.json")
         .then(res => res.json())
         .then(data => {
             imagenesData = data;
+            nombresPeleadores = data.map(p => p.Nombre); // Extraer solo los nombres
+            console.log("Nombres de peleadores cargados:", nombresPeleadores); // Depuración
         })
         .catch(error => {
             console.error("Error al cargar imagenes.json:", error);
@@ -41,6 +41,37 @@ document.addEventListener("DOMContentLoaded", () => {
         const imagenURL = obtenerImagen(input.value);
         img.src = imagenURL;
     }
+
+    // Función para actualizar las opciones del datalist
+    function actualizarDatalist(input, datalist) {
+        const valor = input.value.toLowerCase();
+        datalist.innerHTML = ""; // Limpiar opciones previas
+
+        // Filtrar nombres que coincidan parcialmente con el texto ingresado
+        const sugerencias = nombresPeleadores.filter(nombre =>
+            nombre.toLowerCase().includes(valor)
+        );
+
+        console.log("Sugerencias generadas:", sugerencias); // Depuración
+
+        // Crear opciones para el datalist
+        sugerencias.forEach(nombre => {
+            const option = document.createElement("option");
+            option.value = nombre;
+            datalist.appendChild(option);
+        });
+    }
+
+    // Escuchar eventos de entrada en los campos de texto
+    input1.addEventListener("input", () => {
+        actualizarDatalist(input1, datalist1);
+        actualizarImagen(input1, img1);
+    });
+
+    input2.addEventListener("input", () => {
+        actualizarDatalist(input2, datalist2);
+        actualizarImagen(input2, img2);
+    });
 
     // Mostrar imágenes predeterminadas al cargar la página
     actualizarImagen(input1, img1);

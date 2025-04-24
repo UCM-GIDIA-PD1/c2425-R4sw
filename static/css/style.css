@@ -395,6 +395,10 @@ a:hover {
     text-align: center;
 }
 
+datalist {
+    display: block; /* Asegúrate de que no esté oculto */
+}
+
 /* Sección del botón de envío */
 .submit-section {
     text-align: center;
