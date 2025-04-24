@@ -2,9 +2,17 @@ import pandas as pd
 import math
 import os 
 from PasarAP2Difdf import crearDfDif
+import unicodedata
 
- # Calcula una fila de estadísticas para un enfrentamiento entre dos peleadores
- # usando sus últimas 3 peleas para calcular estadísticas ponderadas y diferencias.
+def normalizar_nombre(nombre):
+    """
+    Normaliza un nombre eliminando tildes y convirtiéndolo a minúsculas.
+    """
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', nombre)
+        if unicodedata.category(c) != 'Mn'
+    ).lower()
+
 def calcular_fila_pelea(peleador_a, peleador_b):
     """
     Realizado por Mateo Turati.
@@ -17,10 +25,10 @@ def calcular_fila_pelea(peleador_a, peleador_b):
     df = pd.read_parquet(ruta_df)
     df['DATE'] = pd.to_datetime(df['DATE'])
 
-    peleador_a = peleador_a.lower()
-    peleador_b = peleador_b.lower()
-    df['Peleador_A'] = df['Peleador_A'].str.lower()
-    df['Peleador_B'] = df['Peleador_B'].str.lower()
+    peleador_a = normalizar_nombre(peleador_a)
+    peleador_b = normalizar_nombre(peleador_b)
+    df['Peleador_A'] = df['Peleador_A'].apply(normalizar_nombre)
+    df['Peleador_B'] = df['Peleador_B'].apply(normalizar_nombre)
     fecha = pd.Timestamp.today()
 
     # Filtrar y ordenar las últimas tres peleas previas de cada peleador
