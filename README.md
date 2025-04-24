@@ -82,6 +82,7 @@ Una vez que el servidor esté corriendo, puedes acceder a la aplicación desde t
 ```
 http://127.0.0.1:8000
 ```
+
 #### 3. Detener el servidor
 
 Para detener el servidor, simplemente presiona `Ctrl+C` en la terminal.
@@ -107,9 +108,11 @@ docker run --name peleas-app -p 8000:8000 nombre-de-tu-imagen
 * `-p 8000:8000` hace accesible la API en http://localhost:8000.
 
 #### 3. Probar la aplicación
+
 Con el contenedor corriendo, abre el navegador y accede a http://localhost:8000.
 
 #### 4. Detener y eliminar el contenedor
+
 Para parar temporalmente:
 
 ```
@@ -130,10 +133,14 @@ Si modificas código o dependencias, vuelve a construir la imagen:
 docker build --no-cache -t nombre-de-tu-imagen .
 ```
 
-## Integrantes 
+## Equipo de desarrollo
+
  -  Andrés Fernández Ortega
  -  Francisco José Pastor Ruiz
  -  Mario Granados Guerrero
  -  Telmo Aracama Docampo
  -  Carlos Vallejo Ros
  -  Mateo Turati Domínguez
+
+Mención especial y agradecimientos a nuestro profesor Antonio Alejandro Sánchez Ruiz-Granados por su constante ayuda y supervisión a lo largo del desarrollo del proyecto.
+
