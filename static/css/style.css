@@ -136,6 +136,26 @@ a:hover {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+.title-img {
+    width: 300px;
+    height: 250px;
+    display: block;
+    margin: 0 auto;
+    border: none;        /* Elimina cualquier borde */
+    outline: none;       /* Elimina contornos si los hay */
+    box-shadow: none;    /* Asegura que no haya sombra */
+    background: none;    /* Por si la imagen tiene fondo */
+}
+
+.title-container {
+    text-align: center;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
 .subtitle {
     font-size: 1.8rem;
     margin-top: 1rem;

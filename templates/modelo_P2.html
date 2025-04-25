@@ -8,18 +8,9 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="titulo-ml">UFC Fight Predictor</h1>
-
-<style>
-    .titulo-ml {
-        font-size: 2.5rem; /* Aumenta el tamaño de la fuente */
-        color: #FF0000; /* Cambia el color del texto a rojo */
-        font-weight: bold; /* Mantiene el texto en negrita */
-        text-align: center; /* Centra el texto */
-        font-family: 'Impact', sans-serif; /* Usa la fuente Impact */
-    }
-</style>
-
+    <div class="title-container">
+        <img src="{{ request.url_for('static', path='img/ufcfightpredictor.png') }}" alt="UFC Fight Predictor" class="title-img">
+    </div>
     <form id="formulario-p2" method="post" class="prediction-form">
         <div class="fighters-row">
             <div class="fighter-card">
