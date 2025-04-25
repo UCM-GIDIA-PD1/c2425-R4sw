@@ -43,14 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Función para actualizar las opciones del datalist
+    // Función para actualizar las opciones del datalist
     function actualizarDatalist(input, datalist) {
         const valor = input.value.toLowerCase();
         datalist.innerHTML = ""; // Limpiar opciones previas
 
         // Filtrar nombres que coincidan parcialmente con el texto ingresado
-        const sugerencias = nombresPeleadores.filter(nombre =>
-            nombre.toLowerCase().includes(valor)
-        );
+        const sugerencias = nombresPeleadores
+            .filter(nombre => nombre.toLowerCase().includes(valor))
+            .slice(0, 8); // Limitar a 8 resultados
 
         console.log("Sugerencias generadas:", sugerencias); // Depuración
 
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             datalist.appendChild(option);
         });
     }
+
 
     // Escuchar eventos de entrada en los campos de texto
     input1.addEventListener("input", () => {
