@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+
             // Crear el gráfico circular para mostrar visualmente las probabilidades
             const ctx = document.getElementById('pieChart').getContext('2d');
 
