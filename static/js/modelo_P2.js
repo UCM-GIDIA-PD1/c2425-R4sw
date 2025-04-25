@@ -175,7 +175,10 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error en la predicción:", error);
             resultadoDiv.innerHTML = `
                 <div class="error-message">
-                    <p>Hubo un error en la predicción. Por favor, inténtalo de nuevo.</p>
+                    <p>Hubo un error en la predicción. Por favor, inténtalo de nuevo.<br>
+                    Ten en cuenta que nuestro modelo necesita que ambos luchadores tengan <br>
+                    al menos 3 peleas registradas para poder hacer una predicción.<br>
+                    </p>
                 </div>
             `;
         }
