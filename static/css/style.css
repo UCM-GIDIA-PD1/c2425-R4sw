@@ -136,6 +136,14 @@ a:hover {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+.title-img1 {
+    width: auto; /* Ajusta automáticamente el ancho */
+    height: 80%; /* Ocupa todo el alto del encabezado */
+    max-height: 3em; /* Asegúrate de que no exceda el tamaño del encabezado */
+    display: inline-block; /* Asegura que se comporte como un elemento en línea */
+    margin: 0 auto; /* Centra la imagen */
+}
+
 .title-img {
     width: 300px;
     height: 250px;
