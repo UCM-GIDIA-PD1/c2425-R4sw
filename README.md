@@ -105,8 +105,11 @@ Ejecuta el siguiente comando para crear la imagen.
 docker build -t webapp .
 ```
 
-* `--name peleas-app` asigna un nombre legible al contenedor (opcional).
-* `-p 8000:8000` hace accesible la API en http://localhost:8000.
+Ejecutar el contenedor Docker en una imagen llamada ```webapp```  
+
+```
+docker run -p 8000:8000 webapp
+```
 
 #### 3. Probar la aplicación
 
