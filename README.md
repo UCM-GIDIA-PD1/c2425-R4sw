@@ -4,7 +4,7 @@
 ## Estructura del repositorio
 
 - La carpeta data contiene:
-  * `imagenes.json`: Archivo que contiene las URL de las fotografías de los peleadores, estas se mostraran en la pagina web.
+  * `imagenes.json`: Archivo que contiene las URL de las fotografías de los peleadores, estas se mostrarán en la página web.
   * `peleas.parquet`: Dataset en formato Parquet que funciona como la base de datos del proyecto.
 
 - La carpeta models alberga dos modelos XGBoost entrenados:
