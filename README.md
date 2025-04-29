@@ -99,10 +99,10 @@ Esta sección explica cómo empaquetar por completo la aplicación dentro de una
 
 #### 2. Construir la imagen
 
-Ejecuta el siguiente comando para crear la imagen; sustituye **`nombre-de-tu-imagen`** por el tag que prefieras.
+Ejecuta el siguiente comando para crear la imagen.
 
 ```
-docker run --name peleas-app -p 8000:8000 nombre-de-tu-imagen
+docker build -t webapp .
 ```
 
 * `--name peleas-app` asigna un nombre legible al contenedor (opcional).
