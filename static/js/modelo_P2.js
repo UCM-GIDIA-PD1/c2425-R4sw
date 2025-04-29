@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
-    img2.style.transform = "scaleX(-1)"; // Voltear la imagen del segundo peleador
+    img2.style.transform = "scaleX(-1)"; // Girar la imagen del segundo peleador
 
     // Imagen por defecto en caso de que no se encuentre imagen específica
     const defaultImg = "/static/img/peleador_default.png";
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             imagenesData = data;
             nombresPeleadores = data.map(p => p.Nombre); // Extraer solo los nombres
-            console.log("Nombres de peleadores cargados:", nombresPeleadores); // Depuración
         })
         .catch(error => {
             console.error("Error al cargar imagenes.json:", error);
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = imagenURL;
     }
 
-    // Función para actualizar las opciones del datalist
     // Función para actualizar las opciones del datalist
     function actualizarDatalist(input, datalist) {
         const valor = input.value.toLowerCase();
