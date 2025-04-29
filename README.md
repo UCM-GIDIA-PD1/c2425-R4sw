@@ -120,13 +120,13 @@ Con el contenedor corriendo, abre el navegador y accede a http://localhost:8000.
 Para parar temporalmente:
 
 ```
-docker stop peleas-app
+docker stop <nombre o id del contenedor>
 ```
 
 Para eliminarlo definitivamente (contenedor detenido):
 
 ```
-docker rm peleas-app
+docker rm <nombre o id del contenedor>
 ```
 
 #### 5. (Optativo) Reconstruir la imagen tras cambios
@@ -134,7 +134,7 @@ docker rm peleas-app
 Si modificas código o dependencias, vuelve a construir la imagen:
 
 ```
-docker build --no-cache -t nombre-de-tu-imagen .
+docker build -t webapp .
 ```
 
 ## Equipo de desarrollo
