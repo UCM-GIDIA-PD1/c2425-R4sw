@@ -3,11 +3,11 @@
 
 ## Índice
 
-1. [Estructura del repositorio](estructura-del-repositorio)
-2. [Instrucciones para iniciar el entorno de desarrollo con sus dependencias](instrucciones-para-iniciar-el-entorno-de-desarrollo-con-sus-dependencias)
-3. [Instrucciones para ejecutar ejecutar y probar el servidor web](instrucciones-para-ejecutar-ejecutar-y-probar-el-servidor-web)
-4. [Instrucciones para crear la imagen docker y ejecutar el contenedor](instrucciones-para-crear-la-imagen-docker-y-ejecutar-el-contenedor)
-5. [Equipo de desarrollo](equipo-de-desarrollo)
+1. [Estructura del repositorio](#estructura-del-repositorio)
+2. [Instrucciones para iniciar el entorno de desarrollo con sus dependencias](#instrucciones-para-iniciar-el-entorno-de-desarrollo-con-sus-dependencias)
+3. [Instrucciones para ejecutar ejecutar y probar el servidor web](#instrucciones-para-ejecutar-ejecutar-y-probar-el-servidor-web)
+4. [Instrucciones para crear la imagen docker y ejecutar el contenedor](#instrucciones-para-crear-la-imagen-docker-y-ejecutar-el-contenedor)
+5. [Equipo de desarrollo](#equipo-de-desarrollo)
    
 ## Estructura del repositorio
 
