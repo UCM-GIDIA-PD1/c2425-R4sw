@@ -1,6 +1,14 @@
 # Servidor web para UFC Predictor: Sistema de predicción para la UFC
 ![imageheader](https://github.com/user-attachments/assets/283a70ee-d10a-4658-9e2a-cbfa237b6949)
 
+## Índice
+
+1. [Estructura del repositorio](Estructura-del-repositorio)
+2. [Instrucciones para iniciar el entorno de desarrollo con sus dependencias]
+3. [Instrucciones para ejecutar ejecutar y probar el servidor web]
+4. [Instrucciones para crear la imagen docker y ejecutar el contenedor]
+5. [Equipo de desarrollo]
+   
 ## Estructura del repositorio
 
 - La carpeta data contiene:
